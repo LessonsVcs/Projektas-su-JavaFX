@@ -26,17 +26,17 @@
         </MenuBar>
         <Label fx:id="username" layoutX="286.0" layoutY="64.0" prefHeight="17.0" prefWidth="67.0" text="Label" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
         <Label layoutX="431.0" layoutY="37.0" text="Loged in as:" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0" />
-      <TableView layoutX="3.0" layoutY="50.0" prefHeight="405.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="courseTable" layoutX="3.0" layoutY="50.0" prefHeight="405.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="Name" />
-            <TableColumn prefWidth="334.0" text="Description" />
-            <TableColumn minWidth="0.0" prefWidth="103.0" text="Start date" />
-            <TableColumn prefWidth="94.0" text="Credits" />
+          <TableColumn fx:id="courseID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="courseName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="courseDescription" prefWidth="334.0" text="Description" />
+            <TableColumn fx:id="courseDate" minWidth="0.0" prefWidth="103.0" text="Start date" />
+            <TableColumn fx:id="courseCredits" prefWidth="94.0" text="Credits" />
         </columns>
       </TableView>
       <Button fx:id="deleteCourse" layoutX="240.0" layoutY="25.0" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="25.0" prefWidth="120.0" text="Delete course" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="25.0" />
-      <Button fx:id="showCourse" layoutX="360.0" layoutY="25.0" mnemonicParsing="false" onAction="#buttonClicked" prefHeight="25.0" prefWidth="120.0" text="Show course" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="25.0" />
+      <Button fx:id="showCourse" layoutX="360.0" layoutY="25.0" mnemonicParsing="false" onAction="#showSelectedCourse" prefHeight="25.0" prefWidth="120.0" text="Show course" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="25.0" />
     </children>
 
 </AnchorPane>

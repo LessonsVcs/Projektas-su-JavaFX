@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static gui.utils.InitLogger.initLogger;
+import static gui.utils.dbUtils.DBUtils.initDB;
+import static gui.utils.dbUtils.DBUtils.initDriver;
 
 
 public class Main extends Application {
@@ -25,13 +27,15 @@ public class Main extends Application {
 
         Scene scene = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(scene);
-        viewManager.showAdminManageCourse();
+        viewManager.showAdminManageCourse("test");
         stage = primaryStage;
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public static void main(String[] args) {
+        initDriver();
+        initDB();
         try {
             initLogger();
         } catch (IOException e) {

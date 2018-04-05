@@ -1,11 +1,10 @@
 package gui.manager;
 
-import gui.controller.admin.AdminAddUserToCourse;
-import gui.controller.admin.AdminManageCourses;
-import gui.controller.admin.AdminShowCourse;
+import gui.controller.admin.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import gui.controller.LoginController;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class ViewManager {
@@ -25,34 +24,74 @@ public class ViewManager {
         }
 
     }
-
-    public void showAdminManageCourse(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/adminManageCourses.fxml"));
+    public void showAdminMenu(String username){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/adminMenu.fxml"));
         try {
             scene.setRoot(loader.load());
-            AdminManageCourses controller = loader.getController();
-            controller.initManager(this);
+            AdminMenu controller = loader.getController();
+            controller.initManager(this,username);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
-
-    public void showAdminShowCourse(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/adminShowCourse.fxml"));
+    public void showAdminManageCourse(String username){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/courses/adminManageCourses.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            AdminManageCourses controller = loader.getController();
+            controller.initManager(this, username);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void showAdminShowCourse(String id){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/courses/adminShowCourse.fxml"));
         try {
             scene.setRoot(loader.load());
             AdminShowCourse controller = loader.getController();
-            controller.initManager(this);
+            controller.initManager(this, Integer.parseInt(id));
         } catch (Exception e){
             e.printStackTrace();
         }
     }
     public void showAdminAddUserToCourse(Stage secondStage){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/adminAddUserToCourse.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/courses/adminAddUserToCourse.fxml"));
         try {
             scene.setRoot(loader.load());
             AdminAddUserToCourse controller = loader.getController();
             controller.initManager(this,secondStage);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void showAdminEditProfile(Stage secondStage){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/adminEditProfile.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            AdminEditProfile controller = loader.getController();
+            controller.initManager(this,secondStage);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showAdminEditCourse(Stage secondStage){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/adminEditCourse.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            AdminEditCourse controller = loader.getController();
+            controller.initManager(this,secondStage);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showAdminEditCourse(Stage secondStage, String courseID){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/adminEditCourse.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            AdminEditCourse controller = loader.getController();
+            controller.initManager(this,secondStage,courseID);
         } catch (Exception e){
             e.printStackTrace();
         }
