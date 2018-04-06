@@ -15,8 +15,10 @@ import javafx.stage.Stage;
 import java.util.List;
 
 import static gui.Main.getPrimaryStage;
+import static gui.utils.Utils.showAdminEditProfile;
 import static gui.utils.dbUtils.RelationDB.getUsersInCourse;
 import static gui.utils.dbUtils.RelationDB.removeFromCourseDB;
+import static gui.utils.dbUtils.UserDB.getUser;
 
 
 public class AdminShowCourse {
@@ -35,7 +37,7 @@ public class AdminShowCourse {
     private MenuItem logout;
 
     @FXML
-    private MenuItem editProfie;
+    private MenuItem editProfile;
 
     @FXML
     private Label adminCoursesUsername;
@@ -83,7 +85,13 @@ public class AdminShowCourse {
 
     @FXML
     void editProfile(ActionEvent event) {
-
+        if (event.getSource()==editProfile){
+            try {
+                User user = getUser(username);
+                showAdminEditProfile(user);
+                updateTable();
+            } catch (Exception e){ }
+        }
     }
 
     @FXML
@@ -100,15 +108,18 @@ public class AdminShowCourse {
                 User user = userTable.getSelectionModel().getSelectedItem();
                 removeFromCourseDB(Integer.parseInt(user.getID()), courseID);
                 updateTable();
-            } catch (Exception e){
-
-            }
+            } catch (Exception e){ }
         }
     }
 
     @FXML
     void showAddUserWindow(ActionEvent event) {
+        if (event.getSource()==courseAddUser) {
+            openAddUserWindow();
+        }
+    }
 
+    private void openAddUserWindow() {
         Scene secondWindow = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(secondWindow);
 
@@ -116,7 +127,7 @@ public class AdminShowCourse {
         secondStage.initModality(Modality.WINDOW_MODAL);
         secondStage.initOwner(getPrimaryStage().getScene().getWindow());
         secondStage.setScene(secondWindow);
-        viewManager.showAdminAddUserToCourse(secondStage,courseID);
+        viewManager.showAdminAddUserToCourse(secondStage, courseID);
         secondStage.showAndWait();
         updateTable();
     }

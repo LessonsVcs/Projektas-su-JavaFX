@@ -48,7 +48,7 @@ public class CourseDB {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
-            //removeFromRelation(false, courseID);
+            removeFromRelation(false, courseID);
             PreparedStatement statement = con.prepareStatement("DELETE FROM Courses where ID_COURSE = ? ; ");
             statement.setInt(1, courseID);
             statement.execute();
@@ -163,8 +163,6 @@ public class CourseDB {
         }
         return list;
     }
-
-
 
     public static Course getCourseInfo(int courseID) {
         Course course = new Course();

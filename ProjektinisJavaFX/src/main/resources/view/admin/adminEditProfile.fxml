@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.admin.courses.AdminEditProfile">
+<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.admin.users.AdminEditProfile">
    <children>
       <Button fx:id="buttonBack" layoutX="604.0" layoutY="394.0" mnemonicParsing="false" onAction="#back" text="Back" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="29.0">
          <font>
@@ -41,27 +41,27 @@
       <Label layoutX="35.0" layoutY="199.0" prefHeight="25.0" prefWidth="149.0" text="Email" />
       <VBox layoutX="241.0" layoutY="64.0" prefHeight="86.0" prefWidth="100.0">
          <children>
-            <RadioButton fx:id="radioAdmin" mnemonicParsing="false" text="Admin  ">
+            <RadioButton fx:id="radioAdmin" accessibleText="ADMIN" mnemonicParsing="false" text="Admin  ">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <toggleGroup>
-                  <ToggleGroup fx:id="Roles" />
+                  <ToggleGroup fx:id="userRoles" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="radioLecturer" mnemonicParsing="false" text="Lecturer  " toggleGroup="$Roles">
+            <RadioButton fx:id="radioLecturer" mnemonicParsing="false" text="Lecturer  " toggleGroup="$userRoles">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </RadioButton>
-            <RadioButton fx:id="radioStudent" mnemonicParsing="false" text="Student  " toggleGroup="$Roles">
+            <RadioButton fx:id="radioStudent" mnemonicParsing="false" text="Student  " toggleGroup="$userRoles">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </RadioButton>
          </children>
       </VBox>
-      <DatePicker layoutX="424.0" layoutY="82.0" />
+      <DatePicker fx:id="datePicker" layoutX="424.0" layoutY="82.0" />
       <Label layoutX="424.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" text="Date of Birth" />
       <Label layoutX="241.0" layoutY="35.0" prefHeight="25.0" prefWidth="149.0" text="Role:" />
       <TextField fx:id="address" layoutX="232.0" layoutY="224.0" />

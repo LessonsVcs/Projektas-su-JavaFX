@@ -2,21 +2,24 @@ package gui.controller.admin.courses;
 
 import gui.manager.ViewManager;
 import gui.model.Course;
+import gui.model.User;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.util.*;
+
+import java.util.List;
 
 import static gui.Main.getPrimaryStage;
+import static gui.utils.Utils.showAdminEditProfile;
 import static gui.utils.dbUtils.CourseDB.deleteCourseDB;
 import static gui.utils.dbUtils.CourseDB.getCourses;
+import static gui.utils.dbUtils.UserDB.getUser;
 
 public class AdminManageCourses {
 
@@ -65,10 +68,45 @@ public class AdminManageCourses {
     private TableColumn<Course, String> courseCredits;
 
 
-
     @FXML
     void createCourse(ActionEvent event) {
-        if(event.getSource()==createCourse){
+        if (event.getSource() == createCourse) {
+            openCourseWindow();
+        }
+    }
+
+    private void openCourseWindow() {
+        Scene secondWindow = new Scene(new StackPane());
+        ViewManager viewManager = new ViewManager(secondWindow);
+
+        Stage secondStage = new Stage();
+        secondStage.initModality(Modality.WINDOW_MODAL);
+        secondStage.initOwner(getPrimaryStage().getScene().getWindow());
+        secondStage.setScene(secondWindow);
+        viewManager.showAdminEditCourse(secondStage);
+        secondStage.showAndWait();
+        updateTable();
+    }
+
+    @FXML
+    void deleteCourse(ActionEvent event) {
+        if (event.getSource() == deleteCourse) {
+            Course course = courseTable.getSelectionModel().getSelectedItem();
+            deleteCourseDB(Integer.parseInt(course.getID()));
+            updateTable();
+        }
+    }
+
+    @FXML
+    void editCourse(ActionEvent event) {
+        if (event.getSource() == editCourse) {
+            openEditCourseWindow();
+        }
+    }
+
+    private void openEditCourseWindow() {
+        try {
+            Course course = courseTable.getSelectionModel().getSelectedItem();
             Scene secondWindow = new Scene(new StackPane());
             ViewManager viewManager = new ViewManager(secondWindow);
 
@@ -76,60 +114,34 @@ public class AdminManageCourses {
             secondStage.initModality(Modality.WINDOW_MODAL);
             secondStage.initOwner(getPrimaryStage().getScene().getWindow());
             secondStage.setScene(secondWindow);
-            viewManager.showAdminEditCourse(secondStage);
+            viewManager.showAdminEditCourse(secondStage, course.getID());
             secondStage.showAndWait();
             updateTable();
-        }
-    }
+        } catch (Exception e) {
 
-    @FXML
-    void deleteCourse(ActionEvent event) {
-        if(event.getSource()==deleteCourse){
-            Course course = courseTable.getSelectionModel().getSelectedItem();
-            deleteCourseDB(Integer.parseInt(course.getID()));
-            updateTable();
-
-        }
-    }
-
-    @FXML
-    void editCourse(ActionEvent event) {
-        if(event.getSource()==editCourse){
-            try {
-                Course course = courseTable.getSelectionModel().getSelectedItem();
-                Scene secondWindow = new Scene(new StackPane());
-                ViewManager viewManager = new ViewManager(secondWindow);
-
-                Stage secondStage = new Stage();
-                secondStage.initModality(Modality.WINDOW_MODAL);
-                secondStage.initOwner(getPrimaryStage().getScene().getWindow());
-                secondStage.setScene(secondWindow);
-                viewManager.showAdminEditCourse(secondStage,course.getID());
-                secondStage.showAndWait();
-                updateTable();
-            } catch (Exception e){
-
-            }
         }
     }
 
     @FXML
     void editProfile(ActionEvent event) {
-        if(event.getSource()==editProfile){
-//            viewManager.showAdminMenu();
+        if (event.getSource() == editProfile) {
+            try {
+                User user = getUser(usernameToPass);
+                showAdminEditProfile(user);
+            } catch (Exception e){ }
         }
     }
 
     @FXML
     void logout(ActionEvent event) {
-        if(event.getSource()==logout){
+        if (event.getSource() == logout) {
             viewManager.showLoginScreen();
         }
     }
 
     @FXML
     void showAdminMenu(ActionEvent event) {
-        if(event.getSource()==goBack){
+        if (event.getSource() == goBack) {
             viewManager.showAdminMenu(usernameToPass);
         }
     }
@@ -139,7 +151,6 @@ public class AdminManageCourses {
         this.viewManager = viewManager;
         this.username.setText(username);
         this.usernameToPass = username;
-
         updateTable();
     }
 
@@ -155,14 +166,11 @@ public class AdminManageCourses {
 
     @FXML
     void showSelectedCourse(ActionEvent event) {
-        if(event.getSource()==showCourse){
+        if (event.getSource() == showCourse) {
             try {
                 Course course = courseTable.getSelectionModel().getSelectedItem();
-                viewManager.showAdminShowCourse(course.getID(),usernameToPass,course.getName());
-            } catch (Exception e){
-
-            }
+                viewManager.showAdminShowCourse(course.getID(), usernameToPass, course.getName());
+            } catch (Exception e) { }
         }
     }
-
 }

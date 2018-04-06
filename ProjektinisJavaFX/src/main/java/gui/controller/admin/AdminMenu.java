@@ -1,6 +1,7 @@
 package gui.controller.admin;
 
 import gui.manager.ViewManager;
+import gui.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import static gui.Main.getPrimaryStage;
+import static gui.utils.Utils.showAdminEditProfile;
+import static gui.utils.dbUtils.UserDB.getUser;
 
 public class AdminMenu {
 
@@ -48,15 +51,10 @@ public class AdminMenu {
     @FXML
     void showEditProfile(ActionEvent event) {
         if (event.getSource() == editProfile) {
-            Scene secondWindow = new Scene(new StackPane());
-            ViewManager viewManager = new ViewManager(secondWindow);
-
-            Stage secondStage = new Stage();
-            secondStage.initModality(Modality.WINDOW_MODAL);
-            secondStage.initOwner(getPrimaryStage().getScene().getWindow());
-            secondStage.setScene(secondWindow);
-            viewManager.showAdminEditProfile(secondStage);
-            secondStage.show();
+            try {
+                User user = getUser(usernameToPass);
+                showAdminEditProfile(user);
+            } catch (Exception e){ }
         }
     }
 

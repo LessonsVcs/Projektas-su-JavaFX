@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import static gui.utils.FormatedDate.FORMATTER;
 import static gui.utils.dbUtils.CourseDB.*;
 import static gui.utils.dbUtils.CourseDB.courseNameExist;
 
@@ -41,15 +40,17 @@ public class AdminEditCourse {
 
     @FXML
     void back(ActionEvent event) {
-
-        secondStage.close();
+        if (event.getSource()==buttonBack){
+            secondStage.close();
+        }
     }
 
     @FXML
     void save(ActionEvent event) {
-        saveChanges();
-//        AdminManageCourses adminManageCourses = new AdminManageCourses();
-//        adminManageCourses.updateTable();
+        if (event.getSource()==buttonSave){
+            saveChanges();
+        }
+
 
     }
 
@@ -116,7 +117,6 @@ public class AdminEditCourse {
         }
     }
 
-
     private void createCourse(Alert alert, Alert alertConfimation) {
         if (courseNameExist(name.getText())) {
             alert.setTitle("Warning");
@@ -155,6 +155,7 @@ public class AdminEditCourse {
         this.viewManager = viewManager;
         this.secondStage = secondStage;
     }
+
     public void initManager(ViewManager viewManager, Stage secondStage,String courseID) {
         this.viewManager = viewManager;
         this.courseID = Integer.parseInt(courseID);

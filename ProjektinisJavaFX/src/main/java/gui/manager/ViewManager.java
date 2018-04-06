@@ -2,7 +2,9 @@ package gui.manager;
 
 import gui.controller.admin.*;
 import gui.controller.admin.courses.*;
+import gui.controller.admin.users.AdminEditProfile;
 import gui.controller.admin.users.AdminManageUsers;
+import gui.model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import gui.controller.LoginController;
@@ -66,11 +68,21 @@ public class ViewManager {
         }
     }
     public void showAdminEditProfile(Stage secondStage){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/courses/adminEditProfile.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/adminEditProfile.fxml"));
         try {
             scene.setRoot(loader.load());
             AdminEditProfile controller = loader.getController();
             controller.initManager(this,secondStage);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void showAdminEditProfile(Stage secondStage, User user){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/admin/adminEditProfile.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            AdminEditProfile controller = loader.getController();
+            controller.initManager(this,secondStage,user);
         } catch (Exception e){
             e.printStackTrace();
         }

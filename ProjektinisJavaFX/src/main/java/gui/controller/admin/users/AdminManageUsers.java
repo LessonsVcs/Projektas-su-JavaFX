@@ -10,7 +10,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 
+import static gui.utils.Utils.showAdminEditProfile;
+import static gui.utils.dbUtils.CourseDB.courseNameExist;
 import static gui.utils.dbUtils.RelationDB.getUsersInCourse;
+import static gui.utils.dbUtils.UserDB.deleteUserDB;
+import static gui.utils.dbUtils.UserDB.getUser;
 import static gui.utils.dbUtils.UserDB.getUsers;
 
 public class AdminManageUsers {
@@ -67,60 +71,79 @@ public class AdminManageUsers {
 
     @FXML
     void createUser(ActionEvent event) {
-
+        if(event.getSource()==buttonCreate){
+            showAdminEditProfile();
+            updateTable();
+        }
     }
 
     @FXML
     void deleteUser(ActionEvent event) {
+        if(event.getSource()==buttonDelete){
+            try {
+                User user = userTable.getSelectionModel().getSelectedItem();
+                deleteUserDB(Integer.parseInt(user.getID()));
+                updateTable();
+            } catch (Exception e){ }
+        }
 
     }
 
     @FXML
     void editProfile(ActionEvent event) {
+        if(event.getSource()==menuEdit){
+            try {
+                User user = getUser(usernameToPass);
+                showAdminEditProfile(user);
+                updateTable();
+            } catch (Exception e){ }
+        }
 
     }
 
     @FXML
     void editUser(ActionEvent event) {
+        if(event.getSource()==buttonEdit){
+            User user = userTable.getSelectionModel().getSelectedItem();
+            showAdminEditProfile(user);
+            updateTable();
+        }
 
     }
 
     @FXML
     void goToAdminMenu(ActionEvent event) {
-
+        if(event.getSource()==buttonBack) {
+            viewManager.showAdminMenu(usernameToPass);
+        }
     }
 
     @FXML
     void logout(ActionEvent event) {
         if(event.getSource()==menuLogout){
-
+            viewManager.showLoginScreen();
         }
 
     }
+
     public void initManager(ViewManager viewManager, String username) {
         this.viewManager = viewManager;
         this.usernameToPass = username;
         this.username.setText(username);
         updateTable();
-
     }
+
     public void updateTable() {
         List<User> list = getUsers();
-        try {
-
-            userID.setCellValueFactory(new PropertyValueFactory<>("ID"));
-            userName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            userLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            userRole.setCellValueFactory(new PropertyValueFactory<>("role"));
-            userEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-            userDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
-            userAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-            userUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
-            userTable.setItems(FXCollections.observableArrayList(list));
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
+        userID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        userName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        userLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        userRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        userEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        userDateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        userAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        userUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        userTable.setItems(FXCollections.observableArrayList(list));
     }
 
 }

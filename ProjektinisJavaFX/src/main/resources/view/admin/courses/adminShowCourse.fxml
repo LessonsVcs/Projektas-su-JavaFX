@@ -20,13 +20,13 @@
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout" />
-                        <MenuItem fx:id="editProfie" mnemonicParsing="false" onAction="#editProfile" text="Edit profile" />
+                        <MenuItem fx:id="editProfile" mnemonicParsing="false" onAction="#editProfile" text="Edit profile" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
         <Label fx:id="adminCoursesUsername" layoutX="286.0" layoutY="64.0" prefHeight="17.0" prefWidth="67.0" text="Label" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-        <Label layoutX="431.0" layoutY="37.0" text="Loged in as:" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0" />
+        <Label layoutX="431.0" layoutY="37.0" text="Logged in as:" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="5.0" />
       <TableView fx:id="userTable" layoutY="50.0" prefHeight="405.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <columns>
           <TableColumn fx:id="userID" prefWidth="56.0" text="ID" />
