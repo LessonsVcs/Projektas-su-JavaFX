@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import static gui.utils.dbUtils.UserDB.checkUsername;
@@ -46,6 +47,13 @@ public class LoginController {
                 warningLabel.setText("Incorrect password");
             }
 
+        }
+    }
+
+    @FXML
+    void enterPressed(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.ENTER)){
+            checkLogin();
         }
     }
 

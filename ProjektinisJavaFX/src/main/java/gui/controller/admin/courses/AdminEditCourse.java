@@ -1,4 +1,4 @@
-package gui.controller.admin;
+package gui.controller.admin.courses;
 
 import gui.manager.ViewManager;
 import gui.model.Course;

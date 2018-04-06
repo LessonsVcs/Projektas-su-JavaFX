@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.admin.AdminManageCourses">
+<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.admin.courses.AdminManageCourses">
     <children>
         <Button fx:id="editCourse" layoutX="120.0" layoutY="25.0" mnemonicParsing="false" onAction="#editCourse" prefHeight="25.0" prefWidth="120.0" text="Edit course" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="25.0" />
         <Button fx:id="createCourse" layoutY="25.0" mnemonicParsing="false" onAction="#createCourse" prefHeight="25.0" prefWidth="120.0" text="Create course" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0" />

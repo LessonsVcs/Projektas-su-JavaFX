@@ -1,4 +1,4 @@
-package gui.controller.admin;
+package gui.controller.admin.courses;
 
 import gui.manager.ViewManager;
 import gui.model.Course;
@@ -144,27 +144,13 @@ public class AdminManageCourses {
     }
 
     public void updateTable() {
-        HashMap<Integer, Course> courseHashMap = getCourses();
-        List<Course> list = FXCollections.observableArrayList();
+        List<Course> list = getCourses();
         courseID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         courseName.setCellValueFactory(new PropertyValueFactory<>("name"));
         courseDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         courseDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         courseCredits.setCellValueFactory(new PropertyValueFactory<>("credits"));
-
-        for(Integer i : courseHashMap.keySet()){
-            Course course = new Course();
-            course.setID(courseHashMap.get(i).getID());
-            course.setName(courseHashMap.get(i).getName());
-            course.setDescription(courseHashMap.get(i).getDescription());
-            course.setCredits(courseHashMap.get(i).getCredits());
-            course.setStartDate(courseHashMap.get(i).getStartDate());
-            list.add(course);
-
-        }
         courseTable.setItems(FXCollections.observableArrayList(list));
-
-
     }
 
     @FXML
@@ -172,7 +158,7 @@ public class AdminManageCourses {
         if(event.getSource()==showCourse){
             try {
                 Course course = courseTable.getSelectionModel().getSelectedItem();
-                viewManager.showAdminShowCourse(course.getID());
+                viewManager.showAdminShowCourse(course.getID(),usernameToPass,course.getName());
             } catch (Exception e){
 
             }

@@ -3,6 +3,7 @@ package gui.utils.dbUtils;
 import gui.model.Course;
 import gui.model.User;
 import gui.utils.Roles;
+import javafx.collections.FXCollections;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -10,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import static gui.utils.FormatedDate.FORMAT;
@@ -139,15 +141,14 @@ public class CourseDB {
 
     }
 
-    public static HashMap getCourses() {
-        HashMap<Integer, Course> courseHashMap = new HashMap<>();
+    public static List getCourses() {
+        List<Course> list = FXCollections.observableArrayList();
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
             PreparedStatement statement = con.prepareStatement("SELECT * from Courses; ");
             ResultSet resultSet = statement.executeQuery();
 
-            int counter = 0;
             while (resultSet.next()) {
                 Course course = new Course();
                 course.setName(resultSet.getString("NAME"));
@@ -155,38 +156,15 @@ public class CourseDB {
                 course.setCredits(resultSet.getString("CREDITS"));
                 course.setDescription(resultSet.getString("DESCRIPTION"));
                 course.setStartDate(FORMAT.format(resultSet.getDate("STARTDATE")));
-
-                courseHashMap.put(counter++, course);
+                list.add(course);
             }
         } catch (Exception e) {
             System.out.println("failed to update course");
         }
-        return courseHashMap;
+        return list;
     }
 
-    public static HashMap getUsersInCourses(int courseID) {
-        HashMap<Integer, User> userHashMap = new HashMap<>();
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME, ROLE from COURSERELATION " +
-                    "JOIN USERS ON  ID_USER = ID where ID_COURSE = ?");
-            statement.setInt(1, courseID);
-            ResultSet resultSet = statement.executeQuery();
-            int counter = 0;
-            while (resultSet.next()) {
-                User user = new User();
-                user.setID(String.valueOf(resultSet.getInt("ID")));
-                user.setFirstName(resultSet.getString("NAME"));
-                user.setLastName(resultSet.getString("LASTNAME"));
-                user.setRole(Roles.valueOf(resultSet.getString("ROLE")));
-                userHashMap.put(counter++, user);
-            }
-        } catch (Exception e) {
-            System.out.println("failed to get users in course");
-        }
-        return userHashMap;
-    }
+
 
     public static Course getCourseInfo(int courseID) {
         Course course = new Course();

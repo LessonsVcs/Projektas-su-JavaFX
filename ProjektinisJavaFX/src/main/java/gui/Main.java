@@ -27,7 +27,8 @@ public class Main extends Application {
 
         Scene scene = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(scene);
-        viewManager.showAdminManageCourse("test");
+//        viewManager.showAdminManageCourse("test");
+        viewManager.showLoginScreen();
         stage = primaryStage;
         primaryStage.setScene(scene);
         primaryStage.show();

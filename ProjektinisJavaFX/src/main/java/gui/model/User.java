@@ -11,7 +11,7 @@ public class User {
     private String lastName;
     private String password;
     private String username;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String email;
     private String address;
 
@@ -59,11 +59,11 @@ public class User {
         this.username = username;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

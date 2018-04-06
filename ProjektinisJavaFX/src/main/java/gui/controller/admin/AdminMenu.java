@@ -70,7 +70,7 @@ public class AdminMenu {
     @FXML
     void showManageUsers(ActionEvent event) {
         if (event.getSource() == manageUsers) {
-//            viewManager.showLoginScreen();
+            viewManager.showAdminManageUsers(usernameToPass);
         }
     }
 

@@ -19,7 +19,7 @@
             <Font size="18.0" />
          </font></Label>
                 <TextField fx:id="loginUsername" layoutX="225.0" layoutY="133.0" prefHeight="25.0" prefWidth="149.0" />
-                <PasswordField fx:id="loginPassword" layoutX="225.0" layoutY="199.0" />
+                <PasswordField fx:id="loginPassword" layoutX="225.0" layoutY="199.0" onKeyPressed="#enterPressed" />
       <Label fx:id="warningLabel" layoutX="225.0" layoutY="274.0" prefHeight="49.0" prefWidth="149.0" textAlignment="CENTER" textFill="#f50505">
          <font>
             <Font size="14.0" />

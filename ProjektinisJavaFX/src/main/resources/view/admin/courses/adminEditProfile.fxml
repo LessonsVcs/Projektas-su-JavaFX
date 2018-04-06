@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.admin.AdminEditProfile">
+<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.admin.courses.AdminEditProfile">
    <children>
       <Button fx:id="buttonBack" layoutX="604.0" layoutY="394.0" mnemonicParsing="false" onAction="#back" text="Back" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="29.0">
          <font>

@@ -2,10 +2,15 @@ package gui.utils.dbUtils;
 
 
 import gui.model.Course;
+import gui.model.User;
 import gui.utils.Roles;
+import javafx.collections.FXCollections;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import static gui.utils.dbUtils.DBUtils.convertToUtilDate;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
@@ -58,7 +63,7 @@ public class RelationDB {
         }
     }
 
-    public static void removeFromCourse(int user_id, int course_id) {
+    public static void removeFromCourseDB(int user_id, int course_id) {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
@@ -117,6 +122,83 @@ public class RelationDB {
         }
         return courseHashMap;
     }
+
+    public static List getUsersInCourse(int courseID) {
+        List<User> list = FXCollections.observableArrayList();
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME, USERNAME, ROLE from COURSERELATION " +
+                    "JOIN USERS ON  ID_USER = ID where ID_COURSE = ?");
+            statement.setInt(1, courseID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setID(String.valueOf(resultSet.getInt("ID")));
+                user.setFirstName(resultSet.getString("NAME"));
+                user.setLastName(resultSet.getString("LASTNAME"));
+                user.setUsername(resultSet.getString("USERNAME"));
+                user.setRole(Roles.valueOf(resultSet.getString("ROLE")));
+                list.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("failed to get users in course (getUsersInCourse)");
+        }
+        return list;
+    }
+
+    public static List getUsersNotInCourse(int courseID) {
+
+
+        List<User> list = FXCollections.observableArrayList();
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement(
+                    "SELECT u.ID, u.NAME, u.LASTNAME" +
+                    "  FROM USERS u" +
+                    " WHERE NOT EXISTS (SELECT 1" +
+                    "                     FROM COURSERELATION s" +
+                    "                    WHERE s.id_user = u.id" +
+                    "                      AND s.id_course = ?)");
+            statement.setInt(1, courseID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setID(String.valueOf(resultSet.getInt("ID")));
+                user.setFirstName(resultSet.getString("NAME"));
+                user.setLastName(resultSet.getString("LASTNAME"));
+                list.add(user);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("failed to get users (getUsersNotInCourse)");
+        }
+        return list;
+    }
+
+    public static List getUsersInCourseIDs(int courseID) {
+        List<String> list = new ArrayList<>();
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME, USERNAME, ROLE from COURSERELATION " +
+                    "JOIN USERS ON  ID_USER = ID where ID_COURSE = ?");
+            statement.setInt(1, courseID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                list.add(String.valueOf(resultSet.getInt("ID")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("failed to get users in course(getUsersInCourseIDs)");
+        }
+        return list;
+    }
+
+
 
 
     public static boolean lecturerInCourse(int user_course) {

@@ -1,11 +1,16 @@
 package gui.utils.dbUtils;
 
+import gui.model.Course;
 import gui.model.User;
 import gui.utils.Roles;
+import javafx.collections.FXCollections;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import static gui.utils.FormatedDate.FORMAT;
 import static gui.utils.dbUtils.DBUtils.convertToMysqlDate;
 import static gui.utils.dbUtils.RelationDB.removeFromRelation;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
@@ -252,26 +257,35 @@ public class UserDB {
         }
     }
 
-    public static HashMap getUsers() {
-        HashMap<Integer, User> userHashMap = new HashMap<>();
+    public static List getUsers() {
+        List<User> list = FXCollections.observableArrayList();
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
-            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME from Users; ");
+            PreparedStatement statement = con.prepareStatement("SELECT * from Users; ");
             ResultSet resultSet = statement.executeQuery();
-            int counter = 0;
             while (resultSet.next()) {
                 User user = new User();
+                user.setID(String.valueOf(resultSet.getInt("ID")));
+                user.setUsername(resultSet.getString("USERNAME"));
+                user.setPassword(resultSet.getString("PASSWORD"));
+                user.setRole(Roles.valueOf(resultSet.getString("ROLE")));
                 user.setFirstName(resultSet.getString("NAME"));
                 user.setLastName(resultSet.getString("LASTNAME"));
-                user.setID(String.valueOf(resultSet.getInt("ID")));
-                userHashMap.put(counter++, user);
+                user.setEmail(resultSet.getString("EMAIL"));
+                user.setAddress(resultSet.getString("ADDRESS"));
+                try {
+                    user.setDateOfBirth(FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
+                } catch (Exception e){
+                    user.setDateOfBirth(null);
+                }
+                list.add(user);
             }
 
         } catch (Exception e) {
-            System.out.println("failed to get users");
+            System.out.println("failed to get users (getUsers)");
         }
-        return userHashMap;
+        return list;
     }
 
     public static int getUserID(String username) {
@@ -303,5 +317,23 @@ public class UserDB {
             return 0;
         }
     }
+
+    public static List getUsersIDs() {
+        List<String> list = new ArrayList<>();
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME from Users; ");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                list.add(String.valueOf(resultSet.getInt("ID")));
+            }
+
+        } catch (Exception e) {
+            System.out.println("failed to get users(getUsersIDs)");
+        }
+        return list;
+    }
+
 
 }
