@@ -6,12 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static gui.utils.dbUtils.CourseDB.*;
-import static gui.utils.dbUtils.CourseDB.courseNameExist;
 
 public class AdminEditCourse {
 
@@ -40,14 +40,14 @@ public class AdminEditCourse {
 
     @FXML
     void back(ActionEvent event) {
-        if (event.getSource()==buttonBack){
+        if (event.getSource() == buttonBack) {
             secondStage.close();
         }
     }
 
     @FXML
     void save(ActionEvent event) {
-        if (event.getSource()==buttonSave){
+        if (event.getSource() == buttonSave) {
             saveChanges();
         }
 
@@ -58,7 +58,7 @@ public class AdminEditCourse {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         Alert alertConfimation = new Alert(Alert.AlertType.CONFIRMATION);
 
-        if (name.getText() == null ||name.getText().isEmpty()){
+        if (name.getText() == null || name.getText().isEmpty()) {
             alert.setTitle("Warning");
             alert.setContentText("Name cannot be blank!");
             alert.showAndWait();
@@ -68,14 +68,13 @@ public class AdminEditCourse {
                 alert.setContentText("Date can't be empty!");
                 alert.showAndWait();
             } else {
-                if(courseID==0) {
+                if (courseID == 0) {
                     createCourse(alert, alertConfimation);
-                }
-                else {
-                    if(name.getText().equalsIgnoreCase(oldName)){
+                } else {
+                    if (name.getText().equalsIgnoreCase(oldName)) {
                         updateCourse(alert, alertConfimation);
                     } else {
-                        if (courseNameExist(name.getText())){
+                        if (courseNameExist(name.getText())) {
                             alert.setTitle("Warning");
                             alert.setContentText("This name already exists!");
                             alert.showAndWait();
@@ -100,13 +99,13 @@ public class AdminEditCourse {
             Optional<ButtonType> result = alertConfimation.showAndWait();
             if (result.get() == ButtonType.OK) {
                 course.setCredits("0");
-                updateCourseValues(course,courseID);
+                updateCourseValues(course, courseID);
             }
         } else {
             Optional<ButtonType> result = alertConfimation.showAndWait();
             if (result.get() == ButtonType.OK) {
                 course.setCredits(credits.getText());
-                updateCourseValues(course,courseID);
+                updateCourseValues(course, courseID);
             }
         }
         try {
@@ -156,7 +155,7 @@ public class AdminEditCourse {
         this.secondStage = secondStage;
     }
 
-    public void initManager(ViewManager viewManager, Stage secondStage,String courseID) {
+    public void initManager(ViewManager viewManager, Stage secondStage, String courseID) {
         this.viewManager = viewManager;
         this.courseID = Integer.parseInt(courseID);
         this.secondStage = secondStage;
@@ -167,7 +166,7 @@ public class AdminEditCourse {
 
     private void setUpValues() {
         Course course = getCourse(this.courseID);
-        LocalDate date = LocalDate.parse(course.getStartDate(),(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        LocalDate date = LocalDate.parse(course.getStartDate(), (DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         name.setText(course.getName());
         this.oldName = course.getName();
         description.setText(course.getDescription());

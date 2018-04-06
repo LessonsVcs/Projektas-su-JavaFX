@@ -11,12 +11,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
-import static gui.utils.dbUtils.RelationDB.*;
-import static gui.utils.dbUtils.UserDB.getUsersIDs;
+import static gui.utils.dbUtils.RelationDB.addToCourse;
+import static gui.utils.dbUtils.RelationDB.getUsersNotInCourse;
 
 public class AdminAddUserToCourse {
 
@@ -44,12 +42,12 @@ public class AdminAddUserToCourse {
 
     @FXML
     void addUser(ActionEvent event) {
-        if(event.getSource()==buttonAdd){
+        if (event.getSource() == buttonAdd) {
             try {
                 User user = userTable.getSelectionModel().getSelectedItem();
-                addToCourse(Integer.parseInt(user.getID()),courseID);
+                addToCourse(Integer.parseInt(user.getID()), courseID);
                 updateTable();
-            } catch (Exception e){
+            } catch (Exception e) {
 
             }
 

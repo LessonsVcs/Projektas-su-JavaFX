@@ -8,11 +8,9 @@ import javafx.collections.FXCollections;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import static gui.utils.dbUtils.DBUtils.convertToUtilDate;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
 import static gui.utils.dbUtils.dbLoggin.URLOFDB;
 
@@ -157,11 +155,11 @@ public class RelationDB {
         ) {
             PreparedStatement statement = con.prepareStatement(
                     "SELECT u.ID, u.NAME, u.LASTNAME" +
-                    "  FROM USERS u" +
-                    " WHERE NOT EXISTS (SELECT 1" +
-                    "                     FROM COURSERELATION s" +
-                    "                    WHERE s.id_user = u.id" +
-                    "                      AND s.id_course = ?)");
+                            "  FROM USERS u" +
+                            " WHERE NOT EXISTS (SELECT 1" +
+                            "                     FROM COURSERELATION s" +
+                            "                    WHERE s.id_user = u.id" +
+                            "                      AND s.id_course = ?)");
             statement.setInt(1, courseID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -197,8 +195,6 @@ public class RelationDB {
         }
         return list;
     }
-
-
 
 
     public static boolean lecturerInCourse(int user_course) {

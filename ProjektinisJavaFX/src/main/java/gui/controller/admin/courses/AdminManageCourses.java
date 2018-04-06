@@ -128,7 +128,8 @@ public class AdminManageCourses {
             try {
                 User user = getUser(usernameToPass);
                 showAdminEditProfile(user);
-            } catch (Exception e){ }
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -170,7 +171,8 @@ public class AdminManageCourses {
             try {
                 Course course = courseTable.getSelectionModel().getSelectedItem();
                 viewManager.showAdminShowCourse(course.getID(), usernameToPass, course.getName());
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
     }
 }

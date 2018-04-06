@@ -11,11 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.List;
 
 import static gui.utils.Utils.showAdminEditProfile;
-import static gui.utils.dbUtils.CourseDB.courseNameExist;
-import static gui.utils.dbUtils.RelationDB.getUsersInCourse;
-import static gui.utils.dbUtils.UserDB.deleteUserDB;
-import static gui.utils.dbUtils.UserDB.getUser;
-import static gui.utils.dbUtils.UserDB.getUsers;
+import static gui.utils.dbUtils.UserDB.*;
 
 public class AdminManageUsers {
 
@@ -71,7 +67,7 @@ public class AdminManageUsers {
 
     @FXML
     void createUser(ActionEvent event) {
-        if(event.getSource()==buttonCreate){
+        if (event.getSource() == buttonCreate) {
             showAdminEditProfile();
             updateTable();
         }
@@ -79,31 +75,33 @@ public class AdminManageUsers {
 
     @FXML
     void deleteUser(ActionEvent event) {
-        if(event.getSource()==buttonDelete){
+        if (event.getSource() == buttonDelete) {
             try {
                 User user = userTable.getSelectionModel().getSelectedItem();
                 deleteUserDB(Integer.parseInt(user.getID()));
                 updateTable();
-            } catch (Exception e){ }
+            } catch (Exception e) {
+            }
         }
 
     }
 
     @FXML
     void editProfile(ActionEvent event) {
-        if(event.getSource()==menuEdit){
+        if (event.getSource() == menuEdit) {
             try {
                 User user = getUser(usernameToPass);
                 showAdminEditProfile(user);
                 updateTable();
-            } catch (Exception e){ }
+            } catch (Exception e) {
+            }
         }
 
     }
 
     @FXML
     void editUser(ActionEvent event) {
-        if(event.getSource()==buttonEdit){
+        if (event.getSource() == buttonEdit) {
             User user = userTable.getSelectionModel().getSelectedItem();
             showAdminEditProfile(user);
             updateTable();
@@ -113,14 +111,14 @@ public class AdminManageUsers {
 
     @FXML
     void goToAdminMenu(ActionEvent event) {
-        if(event.getSource()==buttonBack) {
+        if (event.getSource() == buttonBack) {
             viewManager.showAdminMenu(usernameToPass);
         }
     }
 
     @FXML
     void logout(ActionEvent event) {
-        if(event.getSource()==menuLogout){
+        if (event.getSource() == menuLogout) {
             viewManager.showLoginScreen();
         }
 

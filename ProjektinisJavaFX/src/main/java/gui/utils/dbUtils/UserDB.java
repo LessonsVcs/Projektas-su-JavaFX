@@ -1,6 +1,5 @@
 package gui.utils.dbUtils;
 
-import gui.model.Course;
 import gui.model.User;
 import gui.utils.Roles;
 import javafx.collections.FXCollections;
@@ -8,7 +7,6 @@ import javafx.collections.FXCollections;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static gui.utils.FormatedDate.FORMAT;
@@ -84,32 +82,18 @@ public class UserDB {
         }
     }
 
-    public static String getRole(Boolean byID, String input) {
-        if (byID) {
-            try (
-                    Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-            ) {
-                PreparedStatement statement = con.prepareStatement("SELECT role from Users where id = ? ; ");
-                statement.setInt(1, Integer.parseInt(input));
-                ResultSet resultSet = statement.executeQuery();
-                resultSet.next();
-                return resultSet.getString("role");
-            } catch (SQLException e) {
-                return null;
-            }
-        } else {
-            try (
-                    Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-            ) {
-                PreparedStatement statement = con.prepareStatement("SELECT role from Users where username = ? ; ");
-                statement.setString(1, input);
-                ResultSet resultSet = statement.executeQuery();
-                resultSet.next();
-                return resultSet.getString("role");
-            } catch (SQLException e) {
-                return null;
-            }
+    public static Roles getRole(String username) {
 
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement("SELECT role from Users where username = ? ; ");
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return Roles.valueOf(resultSet.getString("role"));
+        } catch (SQLException e) {
+            return null;
         }
     }
 
@@ -145,19 +129,18 @@ public class UserDB {
         return value;
     }
 
-
-    public static void createUserDB(User user){
+    public static void createUserDB(User user) {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
             PreparedStatement statement = con.prepareStatement("INSERT INTO Users (NAME, LASTNAME, PASSWORD, " +
                     "USERNAME, ROLE, EMAIL, DATEOFBIRTH, ADDRESS ) VALUES (?,?,?,?,?,?,?,?); ");
-            if(user.getFirstName().isEmpty()){
+            if (user.getFirstName().isEmpty()) {
                 statement.setString(1, null);
             } else {
                 statement.setString(1, user.getFirstName());
             }
-            if(user.getLastName().isEmpty()){
+            if (user.getLastName().isEmpty()) {
                 statement.setString(2, null);
             } else {
                 statement.setString(2, user.getLastName());
@@ -165,7 +148,7 @@ public class UserDB {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getUsername());
             statement.setString(5, String.valueOf(user.getRole()));
-            if(user.getEmail().isEmpty()){
+            if (user.getEmail().isEmpty()) {
                 statement.setString(6, null);
             } else {
                 statement.setString(6, user.getEmail());
@@ -173,9 +156,9 @@ public class UserDB {
             try {
                 statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
             } catch (ParseException e) {
-                statement.setDate(7,null);
+                statement.setDate(7, null);
             }
-            if(user.getAddress().isEmpty()){
+            if (user.getAddress().isEmpty()) {
                 statement.setString(8, null);
             } else {
                 statement.setString(8, user.getAddress());
@@ -194,12 +177,12 @@ public class UserDB {
             PreparedStatement statement = con.prepareStatement("UPDATE Users SET name = ?, SET LASTNAME = ?," +
                     "SET PASSWORD = ?, SET USERNAME = ?, SET ROLE = ?, SET EMAIL = ?, SET DATEOFBIRTH = ?," +
                     "SET ADDRESS = ?, WHERE ID = ?; ");
-            if(user.getFirstName().isEmpty()){
+            if (user.getFirstName().isEmpty()) {
                 statement.setString(1, null);
             } else {
                 statement.setString(1, user.getFirstName());
             }
-            if(user.getLastName().isEmpty()){
+            if (user.getLastName().isEmpty()) {
                 statement.setString(2, null);
             } else {
                 statement.setString(2, user.getLastName());
@@ -207,7 +190,7 @@ public class UserDB {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getUsername());
             statement.setString(5, String.valueOf(user.getRole()));
-            if(user.getEmail().isEmpty()){
+            if (user.getEmail().isEmpty()) {
                 statement.setString(6, null);
             } else {
                 statement.setString(6, user.getEmail());
@@ -215,9 +198,9 @@ public class UserDB {
             try {
                 statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
             } catch (ParseException e) {
-                statement.setDate(7,null);
+                statement.setDate(7, null);
             }
-            if(user.getAddress().isEmpty()){
+            if (user.getAddress().isEmpty()) {
                 statement.setString(8, null);
             } else {
                 statement.setString(8, user.getAddress());
@@ -348,7 +331,7 @@ public class UserDB {
                 user.setAddress(resultSet.getString("ADDRESS"));
                 try {
                     user.setDateOfBirth(FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
-                } catch (Exception e){
+                } catch (Exception e) {
                     user.setDateOfBirth(null);
                 }
                 list.add(user);
@@ -366,7 +349,7 @@ public class UserDB {
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
             PreparedStatement statement = con.prepareStatement("SELECT * from Users where USERNAME= ?; ");
-            statement.setString(1,username);
+            statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             user.setID(String.valueOf(resultSet.getInt("ID")));
@@ -379,7 +362,7 @@ public class UserDB {
             user.setAddress(resultSet.getString("ADDRESS"));
             try {
                 user.setDateOfBirth(FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
-            } catch (Exception e){
+            } catch (Exception e) {
                 user.setDateOfBirth(null);
             }
 
@@ -388,7 +371,6 @@ public class UserDB {
         }
         return user;
     }
-
 
     public static int getUserID(String username) {
         try (

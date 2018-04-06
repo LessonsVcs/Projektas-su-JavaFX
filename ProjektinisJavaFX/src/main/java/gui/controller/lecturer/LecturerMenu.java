@@ -1,4 +1,4 @@
-package gui.controller.admin;
+package gui.controller.lecturer;
 
 import gui.manager.ViewManager;
 import gui.model.User;
@@ -9,19 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
 import static gui.utils.Utils.showAdminEditProfile;
+import static gui.utils.Utils.showLecturerEditProfile;
 import static gui.utils.dbUtils.UserDB.getUser;
 
-public class AdminMenu {
-
-
-    private ViewManager viewManager;
-    private String usernameToPass;
+public class LecturerMenu {
 
     @FXML
-    private Button manageUsers;
+    private Button buttonViewUsers;
 
     @FXML
-    private Button manageCourses;
+    private Button buttonAllCourses;
 
     @FXML
     private Button logout;
@@ -36,35 +33,42 @@ public class AdminMenu {
     private Label username;
 
     @FXML
+    private Button buttonViewCourses;
+    private ViewManager viewManager;
+    private String usernameToPass;
+
+    @FXML
     void logout(ActionEvent event) {
-        if (event.getSource() == logout || event.getSource() == menuItemLogout) {
+        if (event.getSource()==logout || event.getSource()== menuItemLogout){
             viewManager.showLoginScreen();
         }
     }
 
     @FXML
+    void showCourses(ActionEvent event) {
+
+    }
+
+    @FXML
     void showEditProfile(ActionEvent event) {
-        if (event.getSource() == editProfile) {
+        if(event.getSource()==editProfile){
             try {
                 User user = getUser(usernameToPass);
-                showAdminEditProfile(user);
+                showLecturerEditProfile(user);
             } catch (Exception e) {
             }
         }
+
     }
 
     @FXML
-    void showManageCourses(ActionEvent event) {
-        if (event.getSource() == manageCourses) {
-            viewManager.showAdminManageCourse(usernameToPass);
-        }
+    void showMyCourses(ActionEvent event) {
+
     }
 
     @FXML
-    void showManageUsers(ActionEvent event) {
-        if (event.getSource() == manageUsers) {
-            viewManager.showAdminManageUsers(usernameToPass);
-        }
+    void showUsers(ActionEvent event) {
+
     }
 
     public void initManager(ViewManager viewManager, String username) {
@@ -72,4 +76,5 @@ public class AdminMenu {
         this.usernameToPass = username;
         this.username.setText(username);
     }
+
 }

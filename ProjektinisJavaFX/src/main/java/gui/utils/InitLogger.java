@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.logging.*;
 
 public class InitLogger {
-    private  static final Logger LOGGER = Logger.getLogger("myLogger");
+    private static final Logger LOGGER = Logger.getLogger("myLogger");
 
     public static void initLogger() throws IOException {
         ConsoleHandler consoleHandler = new ConsoleHandler();
-        FileHandler fileHandler = new FileHandler("logs.log",true);
+        FileHandler fileHandler = new FileHandler("logs.log", true);
         consoleHandler.setFormatter(new CustomFormat());
         fileHandler.setFormatter(new CustomFormat());
         LOGGER.setUseParentHandlers(false);
@@ -17,11 +17,12 @@ public class InitLogger {
         LOGGER.addHandler(fileHandler);
         LOGGER.info("hi");
     }
-    static class CustomFormat extends Formatter{
+
+    static class CustomFormat extends Formatter {
 
         @Override
         public String format(LogRecord record) {
-            return new Date() + " "+ record.getMessage() +"\n";
+            return new Date() + " " + record.getMessage() + "\n";
         }
     }
 }

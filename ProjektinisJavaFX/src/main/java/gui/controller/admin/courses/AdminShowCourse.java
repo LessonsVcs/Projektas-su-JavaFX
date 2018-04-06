@@ -78,43 +78,45 @@ public class AdminShowCourse {
 
     @FXML
     void backToCourses(ActionEvent event) {
-        if(event.getSource()==courseBack){
+        if (event.getSource() == courseBack) {
             viewManager.showAdminManageCourse(username);
         }
     }
 
     @FXML
     void editProfile(ActionEvent event) {
-        if (event.getSource()==editProfile){
+        if (event.getSource() == editProfile) {
             try {
                 User user = getUser(username);
                 showAdminEditProfile(user);
                 updateTable();
-            } catch (Exception e){ }
+            } catch (Exception e) {
+            }
         }
     }
 
     @FXML
     void logout(ActionEvent event) {
-        if(event.getSource()==logout) {
+        if (event.getSource() == logout) {
             viewManager.showLoginScreen();
         }
     }
 
     @FXML
     void removeFromCourse(ActionEvent event) {
-        if(event.getSource()==courseRemoveUser){
+        if (event.getSource() == courseRemoveUser) {
             try {
                 User user = userTable.getSelectionModel().getSelectedItem();
                 removeFromCourseDB(Integer.parseInt(user.getID()), courseID);
                 updateTable();
-            } catch (Exception e){ }
+            } catch (Exception e) {
+            }
         }
     }
 
     @FXML
     void showAddUserWindow(ActionEvent event) {
-        if (event.getSource()==courseAddUser) {
+        if (event.getSource() == courseAddUser) {
             openAddUserWindow();
         }
     }
@@ -127,7 +129,7 @@ public class AdminShowCourse {
         secondStage.initModality(Modality.WINDOW_MODAL);
         secondStage.initOwner(getPrimaryStage().getScene().getWindow());
         secondStage.setScene(secondWindow);
-        viewManager.showAdminAddUserToCourse(secondStage, courseID);
+        ViewManager.showAdminAddUserToCourse(viewManager, secondStage, courseID);
         secondStage.showAndWait();
         updateTable();
     }

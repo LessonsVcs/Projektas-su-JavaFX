@@ -7,6 +7,6 @@ import java.util.Locale;
 
 public class FormatedDate {
     public static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MMM-dd",Locale.ENGLISH);
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MMM-dd", Locale.ENGLISH);
 
 }

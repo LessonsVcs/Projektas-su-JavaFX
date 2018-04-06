@@ -2,8 +2,6 @@ package gui.model;
 
 import gui.utils.Roles;
 
-import java.util.Date;
-
 public class User {
     private String ID;
     private Roles role;

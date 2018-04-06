@@ -21,9 +21,8 @@ public class Main extends Application {
     }
 
 
-
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
 
         Scene scene = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(scene);

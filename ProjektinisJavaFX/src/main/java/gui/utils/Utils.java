@@ -12,7 +12,8 @@ import static gui.Main.getPrimaryStage;
 
 public class Utils {
     private static final Alert ALERT = new Alert(Alert.AlertType.WARNING);
-    public static void showAdminEditProfile(){
+
+    public static void showAdminEditProfile() {
         Scene secondWindow = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(secondWindow);
 
@@ -23,7 +24,8 @@ public class Utils {
         viewManager.showAdminEditProfile(secondStage);
         secondStage.showAndWait();
     }
-    public static void showAdminEditProfile(User user){
+
+    public static void showAdminEditProfile(User user) {
         Scene secondWindow = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(secondWindow);
 
@@ -34,7 +36,20 @@ public class Utils {
         viewManager.showAdminEditProfile(secondStage, user);
         secondStage.showAndWait();
     }
-    public static void showWarning(String warningMsg){
+
+    public static void showLecturerEditProfile(User user) {
+        Scene secondWindow = new Scene(new StackPane());
+        ViewManager viewManager = new ViewManager(secondWindow);
+
+        Stage secondStage = new Stage();
+        secondStage.initModality(Modality.WINDOW_MODAL);
+        secondStage.initOwner(getPrimaryStage().getScene().getWindow());
+        secondStage.setScene(secondWindow);
+        viewManager.showLecturerEditProfile(secondStage, user);
+        secondStage.showAndWait();
+    }
+
+    public static void showWarning(String warningMsg) {
         ALERT.setTitle("Warning");
         ALERT.setContentText(warningMsg);
         ALERT.showAndWait();

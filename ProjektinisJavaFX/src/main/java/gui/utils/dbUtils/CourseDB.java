@@ -1,18 +1,12 @@
 package gui.utils.dbUtils;
 
 import gui.model.Course;
-import gui.model.User;
-import gui.utils.Roles;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import static gui.utils.FormatedDate.FORMAT;
 import static gui.utils.dbUtils.DBUtils.convertToMysqlDate;
@@ -82,10 +76,10 @@ public class CourseDB {
             PreparedStatement statement = con.prepareStatement("INSERT INTO Courses (NAME ,DESCRIPTION ,StartDate,Credits) " +
                     "VALUES (?,?,?,?); ");
             int creditsINT;
-            if (credits.isEmpty()){
+            if (credits.isEmpty()) {
                 creditsINT = 0;
             } else {
-                creditsINT = Integer.parseInt(credits) ;
+                creditsINT = Integer.parseInt(credits);
             }
 
             statement.setString(1, name);
@@ -238,7 +232,7 @@ public class CourseDB {
             PreparedStatement statement = con.prepareStatement("UPDATE Courses SET NAME = ?," +
                     "DESCRIPTION = ?, STARTDATE = ?, CREDITS = ? WHERE ID_COURSE = ?; ");
             statement.setString(1, course.getName());
-            if(course.getDescription().isEmpty()){
+            if (course.getDescription().isEmpty()) {
                 statement.setString(2, "");
             } else {
                 statement.setString(2, course.getDescription());
@@ -262,7 +256,7 @@ public class CourseDB {
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
             PreparedStatement statement = con.prepareStatement("SELECT * from Courses where ID_COURSE = ?; ");
-            statement.setInt(1,courseID);
+            statement.setInt(1, courseID);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             course.setName(resultSet.getString("NAME"));

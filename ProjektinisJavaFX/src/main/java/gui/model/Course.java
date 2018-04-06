@@ -1,7 +1,5 @@
 package gui.model;
 
-import java.util.Date;
-
 public class Course {
     private String name;
     private String description;

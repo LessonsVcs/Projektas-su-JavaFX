@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import static gui.utils.dbUtils.UserDB.checkUsername;
+import static gui.utils.dbUtils.UserDB.getRole;
 
 public class LoginController {
 
@@ -31,7 +32,7 @@ public class LoginController {
 
     @FXML
     void print(ActionEvent event) {
-        if(event.getSource()==loginButton) {
+        if (event.getSource() == loginButton) {
             checkLogin();
         }
     }
@@ -41,24 +42,31 @@ public class LoginController {
         if (password == null) {
             warningLabel.setText("Incorrect username");
         } else {
-            if (password.equals(loginPassword.getText())){
-                viewManager.showAdminMenu(loginUsername.getText());
+            if (password.equals(loginPassword.getText())) {
+                switch (getRole(loginUsername.getText())) {
+                    case ADMIN:
+                        viewManager.showAdminMenu(loginUsername.getText());
+                        break;
+                    case LECTURER:
+                        viewManager.showLecturerMenu(loginUsername.getText());
+                        break;
+                    case STUDENT:
+                        break;
+                }
             } else {
                 warningLabel.setText("Incorrect password");
             }
-
         }
     }
 
     @FXML
     void enterPressed(KeyEvent event) {
-        if(event.getCode().equals(KeyCode.ENTER)){
+        if (event.getCode().equals(KeyCode.ENTER)) {
             checkLogin();
         }
     }
 
     public void initManager(ViewManager viewManager) {
-
         this.viewManager = viewManager;
     }
 }

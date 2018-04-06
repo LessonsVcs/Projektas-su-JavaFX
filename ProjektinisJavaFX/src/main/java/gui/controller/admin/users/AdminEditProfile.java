@@ -7,14 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static gui.utils.Utils.showWarning;
-import static gui.utils.dbUtils.UserDB.checkUsername;
-import static gui.utils.dbUtils.UserDB.createUserDB;
-import static gui.utils.dbUtils.UserDB.updateUserDB;
+import static gui.utils.dbUtils.UserDB.*;
 
 
 public class AdminEditProfile {
@@ -67,21 +66,21 @@ public class AdminEditProfile {
 
     @FXML
     void back(ActionEvent event) {
-        if(event.getSource()==buttonBack){
+        if (event.getSource() == buttonBack) {
             secondStage.close();
         }
     }
 
     @FXML
     void logout(ActionEvent event) {
-        if(event.getSource()==menuItemLogout){
+        if (event.getSource() == menuItemLogout) {
             viewManager.showLoginScreen();
         }
     }
 
     @FXML
     void save(ActionEvent event) {
-        if(event.getSource()==buttonSave) {
+        if (event.getSource() == buttonSave) {
             checkUserInputs();
         }
     }
@@ -99,21 +98,21 @@ public class AdminEditProfile {
                 } else {
                     try {
                         this.user.getID();
-                        if(username.getText().equalsIgnoreCase(oldName)){
+                        if (username.getText().equalsIgnoreCase(oldName)) {
                             updateUser(alertConfimation, user);
                         } else {
-                            if (checkUsername(username.getText())==null){
+                            if (checkUsername(username.getText()) == null) {
                                 updateUser(alertConfimation, user);
                             } else {
                                 showWarning("This username already exists");
                             }
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         createNewUser(alertConfimation, user);
                     }
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             showWarning("role can't be unselected!");
         }
     }
@@ -192,10 +191,11 @@ public class AdminEditProfile {
         this.email.setText(user.getEmail());
         this.password.setText(user.getPassword());
         try {
-            LocalDate date = LocalDate.parse(user.getDateOfBirth(),(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            LocalDate date = LocalDate.parse(user.getDateOfBirth(), (DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             this.datePicker.setValue(date);
-        } catch (Exception e){ }
-        switch (user.getRole()){
+        } catch (Exception e) {
+        }
+        switch (user.getRole()) {
             case ADMIN:
                 radioAdmin.fire();
                 break;
