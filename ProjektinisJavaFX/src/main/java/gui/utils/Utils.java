@@ -12,6 +12,7 @@ import static gui.Main.getPrimaryStage;
 
 public class Utils {
     private static final Alert ALERT = new Alert(Alert.AlertType.WARNING);
+    public static final int CREDIT_LIMIT = 30;
 
     public static void showAdminEditProfile() {
         Scene secondWindow = new Scene(new StackPane());

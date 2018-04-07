@@ -51,6 +51,7 @@ public class LoginController {
                         viewManager.showLecturerMenu(loginUsername.getText());
                         break;
                     case STUDENT:
+                        viewManager.showStudentMenu(loginUsername.getText());
                         break;
                 }
             } else {

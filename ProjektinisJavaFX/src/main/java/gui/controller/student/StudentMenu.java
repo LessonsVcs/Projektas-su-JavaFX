@@ -1,4 +1,4 @@
-package gui.controller.lecturer;
+package gui.controller.student;
 
 import gui.manager.ViewManager;
 import gui.model.User;
@@ -11,7 +11,7 @@ import javafx.scene.control.MenuItem;
 import static gui.utils.Utils.showLecturerEditProfile;
 import static gui.utils.dbUtils.UserDB.getUser;
 
-public class LecturerMenu {
+public class StudentMenu {
 
     @FXML
     private Button buttonViewUsers;
@@ -46,7 +46,7 @@ public class LecturerMenu {
     @FXML
     void showCourses(ActionEvent event) {
         if (event.getSource()==buttonAllCourses){
-            viewManager.showLecturerAllCourses(usernameToPass);
+            viewManager.showStudentAllCourses(usernameToPass);
         }
     }
 
@@ -72,7 +72,7 @@ public class LecturerMenu {
     @FXML
     void showUsers(ActionEvent event) {
         if(event.getSource()==buttonViewUsers){
-            viewManager.showLecturerUserList(this.usernameToPass);
+            viewManager.showStudentUserList(this.usernameToPass);
         }
     }
 
@@ -81,5 +81,4 @@ public class LecturerMenu {
         this.usernameToPass = username;
         this.username.setText(username);
     }
-
 }

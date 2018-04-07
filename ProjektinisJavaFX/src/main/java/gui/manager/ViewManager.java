@@ -13,6 +13,9 @@ import gui.controller.lecturer.courses.*;
 import gui.controller.lecturer.users.LecturerAddUserToCourse;
 import gui.controller.lecturer.users.LecturerEditProfile;
 import gui.controller.lecturer.users.LecturerUserList;
+import gui.controller.student.StudentMenu;
+import gui.controller.student.courses.StudentAllCourses;
+import gui.controller.student.users.StudentUserList;
 import gui.model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -241,6 +244,39 @@ public class ViewManager {
             viewManager.scene.setRoot(loader.load());
             LecturerAddUserToCourse controller = loader.getController();
             controller.initManager(viewManager, secondStage, courseID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showStudentMenu(String username) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/studentMenu.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            StudentMenu controller = loader.getController();
+            controller.initManager(this, username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showStudentAllCourses(String username) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/courses/studentAllCourses.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            StudentAllCourses controller = loader.getController();
+            controller.initManager(this, username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showStudentUserList(String username) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/users/userUserList.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            StudentUserList controller = loader.getController();
+            controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
         }
