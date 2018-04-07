@@ -87,32 +87,31 @@ public class AdminEditProfile {
 
     private void checkUserInputs() {
         Alert alertConfimation = new Alert(Alert.AlertType.CONFIRMATION);
-        try {
-            userRoles.getSelectedToggle().getUserData().toString();
+        if (userRoles.getSelectedToggle().getUserData() != null){
             if (username.getText().isEmpty() || username.getText() == null) {
                 showWarning("username can't be blank!");
             } else {
-                User user = new User();
+                User newUser = new User();
                 if (password.getText().isEmpty() || password.getText() == null) {
                     showWarning("password can't be blank!");
                 } else {
-                    try {
-                        this.user.getID();
+                    if(this.user!=null){
+                        newUser.setID(user.getID());
                         if (username.getText().equalsIgnoreCase(oldName)) {
-                            updateUser(alertConfimation, user);
+                            updateUser(alertConfimation, newUser);
                         } else {
                             if (checkUsername(username.getText()) == null) {
-                                updateUser(alertConfimation, user);
+                                updateUser(alertConfimation, newUser);
                             } else {
                                 showWarning("This username already exists");
                             }
                         }
-                    } catch (Exception e) {
-                        createNewUser(alertConfimation, user);
+                    } else {
+                        createNewUser(alertConfimation, newUser);
                     }
                 }
             }
-        } catch (Exception e) {
+        } else  {
             showWarning("role can't be unselected!");
         }
     }
@@ -123,10 +122,10 @@ public class AdminEditProfile {
         alertConfimation.setContentText("Are you ok with this?");
         Optional<ButtonType> result = alertConfimation.showAndWait();
         if (result.get() == ButtonType.OK) {
-            try {
-                user.setDateOfBirth(datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            } catch (Exception e) {
+            if(datePicker.getValue()==null) {
                 user.setDateOfBirth(null);
+            } else {
+                user.setDateOfBirth(datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             }
             user.setUsername(username.getText());
             user.setPassword(password.getText());
@@ -145,10 +144,10 @@ public class AdminEditProfile {
         alertConfimation.setContentText("Are you ok with this?");
         Optional<ButtonType> result = alertConfimation.showAndWait();
         if (result.get() == ButtonType.OK) {
-            try {
-                user.setDateOfBirth(datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            } catch (Exception e) {
+            if(datePicker.getValue()==null) {
                 user.setDateOfBirth(null);
+            } else {
+                user.setDateOfBirth(datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             }
             user.setUsername(username.getText());
             user.setPassword(password.getText());

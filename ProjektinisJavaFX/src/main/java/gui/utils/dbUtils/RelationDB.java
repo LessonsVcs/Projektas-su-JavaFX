@@ -3,6 +3,7 @@ package gui.utils.dbUtils;
 
 import gui.model.Course;
 import gui.model.User;
+import gui.utils.FormatedDate;
 import gui.utils.Roles;
 import javafx.collections.FXCollections;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static gui.utils.dbUtils.DBUtils.convertToUtilDate;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
 import static gui.utils.dbUtils.dbLoggin.URLOFDB;
 
@@ -90,13 +92,13 @@ public class RelationDB {
                 value = true;
             }
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return value;
     }
 
-    public static HashMap getUserCourses(int user_id) {
-        HashMap<Integer, Course> courseHashMap = new HashMap<>();
+    public static List getUserCourses(int user_id) {
+        List<Course> list = FXCollections.observableArrayList();
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
@@ -104,21 +106,20 @@ public class RelationDB {
                     " From COURSERELATION JOIN COURSES ON COURSERELATION.ID_COURSE = COURSES.ID_COURSE WHERE ID_USER = ?");
             statement.setInt(1, user_id);
             ResultSet resultSet = statement.executeQuery();
-            int counter = 0;
             while (resultSet.next()) {
                 Course course = new Course();
                 course.setID(String.valueOf(resultSet.getInt("ID_COURSE")));
                 course.setName(resultSet.getString("NAME"));
                 course.setDescription(resultSet.getString("DESCRIPTION"));
-//                course.setStartDate(convertToUtilDate(resultSet.getDate("STARTDATE")));
+                course.setStartDate(FormatedDate.FORMAT.format(convertToUtilDate(resultSet.getDate("STARTDATE"))));
                 course.setCredits(String.valueOf(resultSet.getInt("CREDITS")));
-                courseHashMap.put(counter++, course);
+                list.add(course);
             }
 
         } catch (Exception e) {
             System.out.println("failed to get courses");
         }
-        return courseHashMap;
+        return list;
     }
 
     public static List getUsersInCourse(int courseID) {
@@ -147,8 +148,6 @@ public class RelationDB {
     }
 
     public static List getUsersNotInCourse(int courseID) {
-
-
         List<User> list = FXCollections.observableArrayList();
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
@@ -177,6 +176,36 @@ public class RelationDB {
         return list;
     }
 
+    public static List getLecturerUsersNotInCourse(int courseID) {
+        List<User> list = FXCollections.observableArrayList();
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement(
+                    "SELECT u.ID, u.NAME, u.LASTNAME" +
+                            "  FROM USERS u" +
+                            " WHERE u.role= 'STUDENT' and NOT EXISTS (SELECT 1" +
+                            "                     FROM COURSERELATION s" +
+                            "                    WHERE s.id_user = u.id" +
+                            "                      AND s.id_course = ?) " );
+            statement.setInt(1, courseID);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setID(String.valueOf(resultSet.getInt("ID")));
+                user.setFirstName(resultSet.getString("NAME"));
+                user.setLastName(resultSet.getString("LASTNAME"));
+                list.add(user);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("failed to get users (getUsersNotInCourse)");
+        }
+        return list;
+    }
+
+
     public static List getUsersInCourseIDs(int courseID) {
         List<String> list = new ArrayList<>();
         try (
@@ -195,7 +224,6 @@ public class RelationDB {
         }
         return list;
     }
-
 
     public static boolean lecturerInCourse(int user_course) {
         boolean value = false;

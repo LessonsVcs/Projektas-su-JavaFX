@@ -9,9 +9,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.lecturer.courses.LecturerAllCourses">
+<AnchorPane prefHeight="448.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.lecturer.courses.LecturerMyCourses">
     <children>
-        <Button fx:id="goBack" layoutX="357.0" layoutY="25.0" mnemonicParsing="false" onAction="#showLecturerMenu" prefHeight="25.0" prefWidth="120.0" text="Back" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="25.0" />
+        <Button fx:id="editCourse" layoutX="120.0" layoutY="25.0" mnemonicParsing="false" onAction="#editCourse" prefHeight="25.0" prefWidth="120.0" text="Edit course" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="25.0" />
+        <Button fx:id="createCourse" layoutY="25.0" mnemonicParsing="false" onAction="#createCourse" prefHeight="25.0" prefWidth="120.0" text="Create course" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0" />
+        <Button fx:id="goBack" layoutX="562.0" layoutY="25.0" mnemonicParsing="false" onAction="#showLecturerMenu" prefHeight="25.0" prefWidth="120.0" text="Back" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
         <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
@@ -33,7 +35,8 @@
             <TableColumn fx:id="courseCredits" prefWidth="94.0" text="Credits" />
         </columns>
       </TableView>
-      <Button fx:id="showCourse" layoutX="209.0" layoutY="25.0" mnemonicParsing="false" onAction="#showSelectedCourse" prefHeight="25.0" prefWidth="120.0" text="Show course" AnchorPane.leftAnchor="209.0" AnchorPane.topAnchor="25.0" />
+      <Button fx:id="deleteCourse" layoutX="240.0" layoutY="25.0" mnemonicParsing="false" onAction="#deleteCourse" prefHeight="25.0" prefWidth="120.0" text="Delete course" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="25.0" />
+      <Button fx:id="showCourse" layoutX="360.0" layoutY="25.0" mnemonicParsing="false" onAction="#showSelectedCourse" prefHeight="25.0" prefWidth="120.0" text="Show course" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="25.0" />
     </children>
 
 </AnchorPane>

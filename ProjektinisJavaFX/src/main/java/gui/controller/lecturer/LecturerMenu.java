@@ -46,7 +46,9 @@ public class LecturerMenu {
 
     @FXML
     void showCourses(ActionEvent event) {
-
+        if (event.getSource()==buttonAllCourses){
+            viewManager.showLecturerAllCourses(usernameToPass);
+        }
     }
 
     @FXML
@@ -63,12 +65,16 @@ public class LecturerMenu {
 
     @FXML
     void showMyCourses(ActionEvent event) {
-
+        if(event.getSource()==buttonViewCourses){
+            viewManager.showLecturerMyCourses(usernameToPass);
+        }
     }
 
     @FXML
     void showUsers(ActionEvent event) {
-
+        if(event.getSource()==buttonViewUsers){
+            viewManager.showLecturerUserList(this.usernameToPass);
+        }
     }
 
     public void initManager(ViewManager viewManager, String username) {

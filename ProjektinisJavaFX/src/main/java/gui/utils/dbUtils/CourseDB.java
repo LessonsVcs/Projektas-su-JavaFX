@@ -64,7 +64,7 @@ public class CourseDB {
                 value = true;
             }
         } catch (SQLException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
         return value;
     }

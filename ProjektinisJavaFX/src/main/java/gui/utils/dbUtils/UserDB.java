@@ -135,12 +135,12 @@ public class UserDB {
         ) {
             PreparedStatement statement = con.prepareStatement("INSERT INTO Users (NAME, LASTNAME, PASSWORD, " +
                     "USERNAME, ROLE, EMAIL, DATEOFBIRTH, ADDRESS ) VALUES (?,?,?,?,?,?,?,?); ");
-            if (user.getFirstName().isEmpty()) {
+            if (user.getFirstName().isEmpty() || user.getFirstName()==null) {
                 statement.setString(1, null);
             } else {
                 statement.setString(1, user.getFirstName());
             }
-            if (user.getLastName().isEmpty()) {
+            if (user.getLastName().isEmpty()|| user.getLastName()==null) {
                 statement.setString(2, null);
             } else {
                 statement.setString(2, user.getLastName());
@@ -148,23 +148,29 @@ public class UserDB {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getUsername());
             statement.setString(5, String.valueOf(user.getRole()));
-            if (user.getEmail().isEmpty()) {
+            if (user.getEmail().isEmpty() || user.getEmail()==null) {
                 statement.setString(6, null);
             } else {
                 statement.setString(6, user.getEmail());
             }
-            try {
-                statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
-            } catch (ParseException e) {
+            if (user.getDateOfBirth()!= null ){
+                try {
+                    statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
+
+                } catch (ParseException e) {
+                    statement.setDate(7, null);
+                }
+            } else {
                 statement.setDate(7, null);
             }
-            if (user.getAddress().isEmpty()) {
+            if (user.getAddress().isEmpty() || user.getAddress()==null ) {
                 statement.setString(8, null);
             } else {
                 statement.setString(8, user.getAddress());
             }
             statement.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("failed to update user");
 
         }
@@ -174,9 +180,59 @@ public class UserDB {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
         ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET name = ?, SET LASTNAME = ?," +
-                    "SET PASSWORD = ?, SET USERNAME = ?, SET ROLE = ?, SET EMAIL = ?, SET DATEOFBIRTH = ?," +
-                    "SET ADDRESS = ?, WHERE ID = ?; ");
+            PreparedStatement statement = con.prepareStatement("UPDATE Users SET name = ?,  LASTNAME = ?," +
+                    " PASSWORD = ?,  USERNAME = ?,  ROLE = ?,  EMAIL = ?, DATEOFBIRTH = ?," +
+                    " ADDRESS = ? WHERE ID = ?; ");
+            if (user.getFirstName().isEmpty() || user.getFirstName()==null) {
+                statement.setString(1, null);
+            } else {
+                statement.setString(1, user.getFirstName());
+            }
+            if (user.getLastName().isEmpty()|| user.getLastName()==null) {
+                statement.setString(2, null);
+            } else {
+                statement.setString(2, user.getLastName());
+            }
+            statement.setString(3, user.getPassword());
+            statement.setString(4, user.getUsername());
+            statement.setString(5, String.valueOf(user.getRole()));
+            if (user.getEmail().isEmpty() || user.getEmail()==null) {
+                statement.setString(6, null);
+            } else {
+                statement.setString(6, user.getEmail());
+            }
+            if(user.getDateOfBirth()!= null){
+                try {
+                    statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
+                } catch (ParseException e) {
+                    statement.setDate(7, null);
+                }
+            } else {
+                statement.setDate(7, null);
+            }
+            if (user.getAddress().isEmpty() || user.getAddress()==null) {
+                statement.setString(8, null);
+            } else {
+                statement.setString(8, user.getAddress());
+            }
+            statement.setInt(9, Integer.parseInt(user.getID()));
+            statement.execute();
+            System.out.println("ok");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("failed to update user");
+
+        }
+
+    }
+
+    public static void updateUserProfileDB(User user) {
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            PreparedStatement statement = con.prepareStatement("UPDATE Users SET name = ?, " +
+                    " LASTNAME = ?,  PASSWORD = ?,  EMAIL = ?, " +
+                    " ADDRESS = ? WHERE ID = ?; ");
             if (user.getFirstName().isEmpty()) {
                 statement.setString(1, null);
             } else {
@@ -188,26 +244,20 @@ public class UserDB {
                 statement.setString(2, user.getLastName());
             }
             statement.setString(3, user.getPassword());
-            statement.setString(4, user.getUsername());
-            statement.setString(5, String.valueOf(user.getRole()));
             if (user.getEmail().isEmpty()) {
-                statement.setString(6, null);
+                statement.setString(4, null);
             } else {
-                statement.setString(6, user.getEmail());
-            }
-            try {
-                statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
-            } catch (ParseException e) {
-                statement.setDate(7, null);
+                statement.setString(4, user.getEmail());
             }
             if (user.getAddress().isEmpty()) {
-                statement.setString(8, null);
+                statement.setString(5, null);
             } else {
-                statement.setString(8, user.getAddress());
+                statement.setString(5, user.getAddress());
             }
-            statement.setInt(9, Integer.parseInt(user.getID()));
+            statement.setInt(6, Integer.parseInt(user.getID()));
             statement.execute();
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("failed to update user");
 
         }
