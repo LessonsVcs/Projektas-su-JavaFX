@@ -85,7 +85,7 @@ public class LecturerMyCourses {
         secondStage.initModality(Modality.WINDOW_MODAL);
         secondStage.initOwner(getPrimaryStage().getScene().getWindow());
         secondStage.setScene(secondWindow);
-        viewManager.showLecturerEditCourse(secondStage,usernameToPass);
+        viewManager.showLecturerEditCourse(secondStage, usernameToPass);
         secondStage.showAndWait();
         updateTable();
     }

@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.util.List;
 
 import static gui.utils.dbUtils.UserDB.getUsers;
@@ -36,11 +37,12 @@ public class LecturerUserList {
 
     @FXML
     void backToCourse(ActionEvent event) {
-        if(event.getSource()==back){
+        if (event.getSource() == back) {
             viewManager.showLecturerMenu(username);
         }
 
     }
+
     public void initManager(ViewManager viewManager, String username) {
 
         this.viewManager = viewManager;

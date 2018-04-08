@@ -61,6 +61,7 @@ public class StudentShowCourses {
 
     private int courseID;
     private String username;
+    private ViewManager viewManager;
 
     @FXML
     void backToCourses(ActionEvent event) {
@@ -87,9 +88,6 @@ public class StudentShowCourses {
             viewManager.showLoginScreen();
         }
     }
-
-
-    private ViewManager viewManager;
 
     public void initManager(ViewManager viewManager, int courseID, String username, String courseName) {
         this.viewManager = viewManager;

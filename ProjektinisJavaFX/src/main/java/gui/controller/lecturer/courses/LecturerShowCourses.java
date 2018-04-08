@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.util.List;
 
 import static gui.utils.Utils.showLecturerEditProfile;
@@ -60,6 +61,7 @@ public class LecturerShowCourses {
 
     private int courseID;
     private String username;
+    private ViewManager viewManager;
 
     @FXML
     void backToCourses(ActionEvent event) {
@@ -86,9 +88,6 @@ public class LecturerShowCourses {
             viewManager.showLoginScreen();
         }
     }
-
-
-    private ViewManager viewManager;
 
     public void initManager(ViewManager viewManager, int courseID, String username, String courseName) {
         this.viewManager = viewManager;

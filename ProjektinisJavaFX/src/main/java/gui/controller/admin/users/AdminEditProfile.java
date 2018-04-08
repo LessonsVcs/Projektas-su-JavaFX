@@ -87,7 +87,7 @@ public class AdminEditProfile {
 
     private void checkUserInputs() {
         Alert alertConfimation = new Alert(Alert.AlertType.CONFIRMATION);
-        if (userRoles.getSelectedToggle().getUserData() != null){
+        if (userRoles.getSelectedToggle().getUserData() != null) {
             if (username.getText().isEmpty() || username.getText() == null) {
                 showWarning("username can't be blank!");
             } else {
@@ -95,7 +95,7 @@ public class AdminEditProfile {
                 if (password.getText().isEmpty() || password.getText() == null) {
                     showWarning("password can't be blank!");
                 } else {
-                    if(this.user!=null){
+                    if (this.user != null) {
                         newUser.setID(user.getID());
                         if (username.getText().equalsIgnoreCase(oldName)) {
                             updateUser(alertConfimation, newUser);
@@ -111,7 +111,7 @@ public class AdminEditProfile {
                     }
                 }
             }
-        } else  {
+        } else {
             showWarning("role can't be unselected!");
         }
     }
@@ -122,7 +122,7 @@ public class AdminEditProfile {
         alertConfimation.setContentText("Are you ok with this?");
         Optional<ButtonType> result = alertConfimation.showAndWait();
         if (result.get() == ButtonType.OK) {
-            if(datePicker.getValue()==null) {
+            if (datePicker.getValue() == null) {
                 user.setDateOfBirth(null);
             } else {
                 user.setDateOfBirth(datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -144,7 +144,7 @@ public class AdminEditProfile {
         alertConfimation.setContentText("Are you ok with this?");
         Optional<ButtonType> result = alertConfimation.showAndWait();
         if (result.get() == ButtonType.OK) {
-            if(datePicker.getValue()==null) {
+            if (datePicker.getValue() == null) {
                 user.setDateOfBirth(null);
             } else {
                 user.setDateOfBirth(datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));

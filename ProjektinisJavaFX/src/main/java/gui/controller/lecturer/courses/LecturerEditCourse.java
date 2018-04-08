@@ -136,7 +136,7 @@ public class LecturerEditCourse {
                 if (result.get() == ButtonType.OK) {
                     newCourseDB(name.getText(), description.getText(),
                             startDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), "");
-                    addToCourse(getUserID(username),getCourseID(name.getText()));
+                    addToCourse(getUserID(username), getCourseID(name.getText()));
                 }
             } else {
                 Optional<ButtonType> result = alertConfimation.showAndWait();
@@ -144,7 +144,7 @@ public class LecturerEditCourse {
                     creditsINT = Integer.parseInt(credits.getText());
                     newCourseDB(name.getText(), description.getText(),
                             startDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), creditsINT.toString());
-                    addToCourse(getUserID(username),getCourseID(name.getText()));
+                    addToCourse(getUserID(username), getCourseID(name.getText()));
                 }
             }
             try {

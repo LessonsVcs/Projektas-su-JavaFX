@@ -7,15 +7,15 @@ public class Course {
     private String credits;
     private String ID;
 
+    public Course() {
+    }
+
     public String getID() {
         return ID;
     }
 
     public void setID(String ID) {
         this.ID = ID;
-    }
-
-    public Course() {
     }
 
     public String getCredits() {

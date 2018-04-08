@@ -165,7 +165,7 @@ public class RelationDB {
                             " WHERE u.role= 'STUDENT' and NOT EXISTS (SELECT 1" +
                             "                     FROM COURSERELATION s" +
                             "                    WHERE s.id_user = u.id" +
-                            "                      AND s.id_course = ?) " );
+                            "                      AND s.id_course = ?) ");
             statement.setInt(1, courseID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

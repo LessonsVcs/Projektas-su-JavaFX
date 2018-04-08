@@ -12,15 +12,11 @@ import java.util.Calendar;
 import java.util.List;
 
 import static gui.utils.FormatedDate.SIMPLE_DATE_FORMAT;
-import static gui.utils.Utils.CREDIT_LIMIT;
-import static gui.utils.Utils.showLecturerEditProfile;
-import static gui.utils.Utils.showWarning;
+import static gui.utils.Utils.*;
 import static gui.utils.dbUtils.CourseDB.getCourses;
 import static gui.utils.dbUtils.RelationDB.addToCourse;
 import static gui.utils.dbUtils.RelationDB.lecturerInCourse;
-import static gui.utils.dbUtils.UserDB.getUser;
-import static gui.utils.dbUtils.UserDB.getUserCredits;
-import static gui.utils.dbUtils.UserDB.getUserID;
+import static gui.utils.dbUtils.UserDB.*;
 
 public class StudentAllCourses {
 
@@ -65,14 +61,14 @@ public class StudentAllCourses {
 
     @FXML
     void editProfile(ActionEvent event) {
-        if(event.getSource()==editProfile){
+        if (event.getSource() == editProfile) {
             showLecturerEditProfile(getUser(usernameToPass));
         }
     }
 
     @FXML
     void logout(ActionEvent event) {
-        if(event.getSource()==logout){
+        if (event.getSource() == logout) {
             viewManager.showLoginScreen();
         }
 
@@ -80,14 +76,14 @@ public class StudentAllCourses {
 
     @FXML
     void showStudentMenu(ActionEvent event) {
-        if(event.getSource()==goBack){
+        if (event.getSource() == goBack) {
             viewManager.showStudentMenu(usernameToPass);
         }
     }
 
     @FXML
     void registerToCourse(ActionEvent event) {
-        if (event.getSource()==register){
+        if (event.getSource() == register) {
             register();
         }
     }
@@ -95,9 +91,9 @@ public class StudentAllCourses {
     private void register() {
         try {
             Course course = courseTable.getSelectionModel().getSelectedItem();
-            if(SIMPLE_DATE_FORMAT.parse(course.getStartDate()).after(Calendar.getInstance().getTime())) {
-                int course_id =Integer.parseInt(course.getID());
-                if(lecturerInCourse(course_id)) {
+            if (SIMPLE_DATE_FORMAT.parse(course.getStartDate()).after(Calendar.getInstance().getTime())) {
+                int course_id = Integer.parseInt(course.getID());
+                if (lecturerInCourse(course_id)) {
                     int student_ID = getUserID(usernameToPass);
                     if (getUserCredits(student_ID) + Integer.parseInt(course.getCredits()) <= CREDIT_LIMIT) {
                         addToCourse(student_ID, Integer.parseInt(course.getID()));
@@ -110,7 +106,8 @@ public class StudentAllCourses {
             } else {
                 showWarning("Can't register to course after start date");
             }
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     public void initManager(ViewManager viewManager, String username) {

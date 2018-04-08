@@ -74,6 +74,7 @@ public class LecturerShowMyCourse {
 
     private int courseID;
     private String username;
+    private ViewManager viewManager;
 
     @FXML
     void backToCourses(ActionEvent event) {
@@ -132,8 +133,6 @@ public class LecturerShowMyCourse {
         secondStage.showAndWait();
         updateTable();
     }
-
-    private ViewManager viewManager;
 
     public void initManager(ViewManager viewManager, int courseID, String username, String courseName) {
         this.viewManager = viewManager;

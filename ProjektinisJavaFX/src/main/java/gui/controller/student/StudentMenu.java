@@ -38,21 +38,21 @@ public class StudentMenu {
 
     @FXML
     void logout(ActionEvent event) {
-        if (event.getSource()==logout || event.getSource()== menuItemLogout){
+        if (event.getSource() == logout || event.getSource() == menuItemLogout) {
             viewManager.showLoginScreen();
         }
     }
 
     @FXML
     void showCourses(ActionEvent event) {
-        if (event.getSource()==buttonAllCourses){
+        if (event.getSource() == buttonAllCourses) {
             viewManager.showStudentAllCourses(usernameToPass);
         }
     }
 
     @FXML
     void showEditProfile(ActionEvent event) {
-        if(event.getSource()==editProfile){
+        if (event.getSource() == editProfile) {
             try {
                 User user = getUser(usernameToPass);
                 showLecturerEditProfile(user);
@@ -64,14 +64,14 @@ public class StudentMenu {
 
     @FXML
     void showMyCourses(ActionEvent event) {
-        if(event.getSource()==buttonViewCourses){
+        if (event.getSource() == buttonViewCourses) {
             viewManager.showStudentMyCourses(usernameToPass);
         }
     }
 
     @FXML
     void showUsers(ActionEvent event) {
-        if(event.getSource()==buttonViewUsers){
+        if (event.getSource() == buttonViewUsers) {
             viewManager.showStudentUserList(this.usernameToPass);
         }
     }

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.util.Optional;
 
 import static gui.utils.dbUtils.UserDB.updateUserProfileDB;
@@ -42,7 +43,7 @@ public class LecturerEditProfile {
 
     @FXML
     void back(ActionEvent event) {
-        if(event.getSource()==buttonBack){
+        if (event.getSource() == buttonBack) {
             secondStage.close();
         }
     }
@@ -50,7 +51,7 @@ public class LecturerEditProfile {
 
     @FXML
     void save(ActionEvent event) {
-        if(event.getSource()==buttonSave){
+        if (event.getSource() == buttonSave) {
             updateProfile();
         }
     }
@@ -62,7 +63,7 @@ public class LecturerEditProfile {
         if (password.getText().isEmpty() || password.getText() == null) {
             user.setPassword(this.user.getPassword());
         } else {
-            if(oldpassword.equals(password.getText())){
+            if (oldpassword.equals(password.getText())) {
                 user.setPassword(this.user.getPassword());
             } else {
                 user.setPassword(password.getText());

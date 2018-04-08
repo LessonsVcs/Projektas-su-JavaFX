@@ -29,6 +29,28 @@ public class ViewManager {
         this.scene = scene;
     }
 
+    public static void showAdminAddUserToCourse(ViewManager viewManager, Stage secondStage, int courseID) {
+        FXMLLoader loader = new FXMLLoader(viewManager.getClass().getResource("/view/admin/courses/adminAddUserToCourse.fxml"));
+        try {
+            viewManager.scene.setRoot(loader.load());
+            AdminAddUserToCourse controller = loader.getController();
+            controller.initManager(viewManager, secondStage, courseID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showLecturerAddUserToCourse(ViewManager viewManager, Stage secondStage, int courseID) {
+        FXMLLoader loader = new FXMLLoader(viewManager.getClass().getResource("/view/lecturer/users/lecturerAddUserToCourse.fxml"));
+        try {
+            viewManager.scene.setRoot(loader.load());
+            LecturerAddUserToCourse controller = loader.getController();
+            controller.initManager(viewManager, secondStage, courseID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showLoginScreen() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/loginView.fxml"));
         try {
@@ -69,17 +91,6 @@ public class ViewManager {
             scene.setRoot(loader.load());
             AdminShowCourse controller = loader.getController();
             controller.initManager(this, Integer.parseInt(courseID), username, courseName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void showAdminAddUserToCourse(ViewManager viewManager, Stage secondStage, int courseID) {
-        FXMLLoader loader = new FXMLLoader(viewManager.getClass().getResource("/view/admin/courses/adminAddUserToCourse.fxml"));
-        try {
-            viewManager.scene.setRoot(loader.load());
-            AdminAddUserToCourse controller = loader.getController();
-            controller.initManager(viewManager, secondStage, courseID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -239,17 +250,6 @@ public class ViewManager {
         }
     }
 
-    public static void showLecturerAddUserToCourse(ViewManager viewManager, Stage secondStage, int courseID) {
-        FXMLLoader loader = new FXMLLoader(viewManager.getClass().getResource("/view/lecturer/users/lecturerAddUserToCourse.fxml"));
-        try {
-            viewManager.scene.setRoot(loader.load());
-            LecturerAddUserToCourse controller = loader.getController();
-            controller.initManager(viewManager, secondStage, courseID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void showStudentMenu(String username) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/studentMenu.fxml"));
         try {
@@ -315,7 +315,6 @@ public class ViewManager {
             e.printStackTrace();
         }
     }
-
 
 
 }

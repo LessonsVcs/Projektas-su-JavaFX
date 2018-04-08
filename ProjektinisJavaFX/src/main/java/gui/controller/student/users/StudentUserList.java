@@ -36,11 +36,12 @@ public class StudentUserList {
 
     @FXML
     void backToCourse(ActionEvent event) {
-        if(event.getSource()==back){
+        if (event.getSource() == back) {
             viewManager.showStudentMenu(username);
         }
 
     }
+
     public void initManager(ViewManager viewManager, String username) {
 
         this.viewManager = viewManager;

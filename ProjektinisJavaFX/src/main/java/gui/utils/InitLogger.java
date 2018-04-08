@@ -13,7 +13,7 @@ public class InitLogger {
 
     public static void initLogger(String file, String msg) throws IOException {
         ConsoleHandler consoleHandler = new ConsoleHandler();
-        String fileDir ="C:\\Users\\ajankauskas\\Desktop\\Android\\ProjektinisJavaFX\\logs\\" + SIMPLE_DATE_FORMAT.format(new Date());
+        String fileDir = "C:\\Users\\ajankauskas\\Desktop\\Android\\ProjektinisJavaFX\\logs\\" + SIMPLE_DATE_FORMAT.format(new Date());
         new File(fileDir).mkdir();
         String fileLocation = fileDir + "/system.log";
         System.out.println(fileLocation);

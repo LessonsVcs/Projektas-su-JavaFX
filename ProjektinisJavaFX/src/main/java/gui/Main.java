@@ -6,8 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 import static gui.utils.InitLogger.initLogger;
 import static gui.utils.dbUtils.DBUtils.initDB;
 import static gui.utils.dbUtils.DBUtils.initDriver;
@@ -20,6 +18,16 @@ public class Main extends Application {
         return stage;
     }
 
+    public static void main(String[] args) {
+        initDriver();
+        initDB();
+        try {
+            initLogger(Main.class.toString(), "app started");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -31,16 +39,5 @@ public class Main extends Application {
         stage = primaryStage;
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        initDriver();
-        initDB();
-        try {
-            initLogger(Main.class.toString(),"app started");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        launch(args);
     }
 }

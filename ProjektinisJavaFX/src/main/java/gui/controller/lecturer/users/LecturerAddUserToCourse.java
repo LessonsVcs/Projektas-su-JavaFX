@@ -15,7 +15,6 @@ import java.util.List;
 
 import static gui.utils.dbUtils.RelationDB.addToCourse;
 import static gui.utils.dbUtils.RelationDB.getLecturerUsersNotInCourse;
-import static gui.utils.dbUtils.RelationDB.getUsersNotInCourse;
 
 public class LecturerAddUserToCourse {
 

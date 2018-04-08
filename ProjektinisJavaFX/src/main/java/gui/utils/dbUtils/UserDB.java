@@ -65,12 +65,12 @@ public class UserDB {
         ) {
             PreparedStatement statement = con.prepareStatement("INSERT INTO Users (NAME, LASTNAME, PASSWORD, " +
                     "USERNAME, ROLE, EMAIL, DATEOFBIRTH, ADDRESS ) VALUES (?,?,?,?,?,?,?,?); ");
-            if (user.getFirstName().isEmpty() || user.getFirstName()==null) {
+            if (user.getFirstName().isEmpty() || user.getFirstName() == null) {
                 statement.setString(1, null);
             } else {
                 statement.setString(1, user.getFirstName());
             }
-            if (user.getLastName().isEmpty()|| user.getLastName()==null) {
+            if (user.getLastName().isEmpty() || user.getLastName() == null) {
                 statement.setString(2, null);
             } else {
                 statement.setString(2, user.getLastName());
@@ -78,12 +78,12 @@ public class UserDB {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getUsername());
             statement.setString(5, String.valueOf(user.getRole()));
-            if (user.getEmail().isEmpty() || user.getEmail()==null) {
+            if (user.getEmail().isEmpty() || user.getEmail() == null) {
                 statement.setString(6, null);
             } else {
                 statement.setString(6, user.getEmail());
             }
-            if (user.getDateOfBirth()!= null ){
+            if (user.getDateOfBirth() != null) {
                 try {
                     statement.setDate(7, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(user.getDateOfBirth())));
 
@@ -93,7 +93,7 @@ public class UserDB {
             } else {
                 statement.setDate(7, null);
             }
-            if (user.getAddress().isEmpty() || user.getAddress()==null ) {
+            if (user.getAddress().isEmpty() || user.getAddress() == null) {
                 statement.setString(8, null);
             } else {
                 statement.setString(8, user.getAddress());
@@ -113,12 +113,12 @@ public class UserDB {
             PreparedStatement statement = con.prepareStatement("UPDATE Users SET name = ?,  LASTNAME = ?," +
                     " PASSWORD = ?,  USERNAME = ?,  ROLE = ?,  EMAIL = ?, DATEOFBIRTH = ?," +
                     " ADDRESS = ? WHERE ID = ?; ");
-            if (user.getFirstName().isEmpty() || user.getFirstName()==null) {
+            if (user.getFirstName().isEmpty() || user.getFirstName() == null) {
                 statement.setString(1, null);
             } else {
                 statement.setString(1, user.getFirstName());
             }
-            if (user.getLastName().isEmpty()|| user.getLastName()==null) {
+            if (user.getLastName().isEmpty() || user.getLastName() == null) {
                 statement.setString(2, null);
             } else {
                 statement.setString(2, user.getLastName());
@@ -126,12 +126,12 @@ public class UserDB {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getUsername());
             statement.setString(5, String.valueOf(user.getRole()));
-            if (user.getEmail().isEmpty() || user.getEmail()==null) {
+            if (user.getEmail().isEmpty() || user.getEmail() == null) {
                 statement.setString(6, null);
             } else {
                 statement.setString(6, user.getEmail());
             }
-            if(user.getDateOfBirth()!= null){
+            if (user.getDateOfBirth() != null) {
                 try {
                     statement.setDate(7, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(user.getDateOfBirth())));
                 } catch (ParseException e) {
@@ -140,7 +140,7 @@ public class UserDB {
             } else {
                 statement.setDate(7, null);
             }
-            if (user.getAddress().isEmpty() || user.getAddress()==null) {
+            if (user.getAddress().isEmpty() || user.getAddress() == null) {
                 statement.setString(8, null);
             } else {
                 statement.setString(8, user.getAddress());
