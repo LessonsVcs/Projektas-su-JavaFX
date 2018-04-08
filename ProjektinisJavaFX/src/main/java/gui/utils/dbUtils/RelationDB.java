@@ -8,8 +8,6 @@ import gui.utils.Roles;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static gui.utils.dbUtils.DBUtils.convertToUtilDate;
@@ -77,26 +75,6 @@ public class RelationDB {
         }
     }
 
-    public static boolean isInCourse(int user_id, int user_course) {
-        boolean value = false;
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM COURSERELATION " +
-                    "WHERE ID_USER  = ? AND ID_COURSE = ? ; ");
-            statement.setInt(1, user_id);
-            statement.setInt(2, user_course);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            if (resultSet.getInt("ID_COURSE") > 0) {
-                value = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
     public static List getUserCourses(int user_id) {
         List<Course> list = FXCollections.observableArrayList();
         try (
@@ -111,7 +89,7 @@ public class RelationDB {
                 course.setID(String.valueOf(resultSet.getInt("ID_COURSE")));
                 course.setName(resultSet.getString("NAME"));
                 course.setDescription(resultSet.getString("DESCRIPTION"));
-                course.setStartDate(FormatedDate.FORMAT.format(convertToUtilDate(resultSet.getDate("STARTDATE"))));
+                course.setStartDate(FormatedDate.SIMPLE_DATE_FORMAT.format(convertToUtilDate(resultSet.getDate("STARTDATE"))));
                 course.setCredits(String.valueOf(resultSet.getInt("CREDITS")));
                 list.add(course);
             }
@@ -201,26 +179,6 @@ public class RelationDB {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("failed to get users (getUsersNotInCourse)");
-        }
-        return list;
-    }
-
-
-    public static List getUsersInCourseIDs(int courseID) {
-        List<String> list = new ArrayList<>();
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME, USERNAME, ROLE from COURSERELATION " +
-                    "JOIN USERS ON  ID_USER = ID where ID_COURSE = ?");
-            statement.setInt(1, courseID);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                list.add(String.valueOf(resultSet.getInt("ID")));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("failed to get users in course(getUsersInCourseIDs)");
         }
         return list;
     }

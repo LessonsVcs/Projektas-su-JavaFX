@@ -5,12 +5,10 @@ import javafx.collections.FXCollections;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
-import static gui.utils.FormatedDate.FORMAT;
+import static gui.utils.FormatedDate.SIMPLE_DATE_FORMAT;
 import static gui.utils.dbUtils.DBUtils.convertToMysqlDate;
-import static gui.utils.dbUtils.DBUtils.convertToUtilDate;
 import static gui.utils.dbUtils.RelationDB.removeFromRelation;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
 import static gui.utils.dbUtils.dbLoggin.URLOFDB;
@@ -51,24 +49,6 @@ public class CourseDB {
         }
     }
 
-    public static boolean courseExist(String input) {
-        boolean value = false;
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("Select ID_COURSE FROM Courses where ID_COURSE = ? ; ");
-            statement.setInt(1, Integer.parseInt(input));
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            if (resultSet.getInt("ID_COURSE") > 0) {
-                value = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return value;
-    }
-
     public static void newCourseDB(String name, String description, String startDate, String credits) {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
@@ -84,7 +64,7 @@ public class CourseDB {
 
             statement.setString(1, name);
             statement.setString(2, description);
-            statement.setDate(3, convertToMysqlDate(FORMAT.parse(startDate)));
+            statement.setDate(3, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(startDate)));
             statement.setInt(4, creditsINT);
 
             statement.execute();
@@ -92,47 +72,6 @@ public class CourseDB {
         } catch (Exception e) {
             System.out.println("failed to create course");
         }
-    }
-
-    public static void editCourseName(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Courses SET name = ? WHERE ID_COURSE = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update course");
-        }
-    }
-
-    public static void editCourseDescription(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Courses SET DESCRIPTION = ? WHERE ID_COURSE = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update course");
-        }
-    }
-
-    public static void editCourseDate(Date input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Courses SET STARTDATE = ? WHERE ID_COURSE = ?; ");
-            statement.setDate(1, convertToMysqlDate(input));
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update course");
-
-        }
-
     }
 
     public static List getCourses() {
@@ -149,32 +88,13 @@ public class CourseDB {
                 course.setID(resultSet.getString("ID_COURSE"));
                 course.setCredits(resultSet.getString("CREDITS"));
                 course.setDescription(resultSet.getString("DESCRIPTION"));
-                course.setStartDate(FORMAT.format(resultSet.getDate("STARTDATE")));
+                course.setStartDate(SIMPLE_DATE_FORMAT.format(resultSet.getDate("STARTDATE")));
                 list.add(course);
             }
         } catch (Exception e) {
             System.out.println("failed to update course");
         }
         return list;
-    }
-
-    public static Course getCourseInfo(int courseID) {
-        Course course = new Course();
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-
-            PreparedStatement statement = con.prepareStatement("SELECT NAME, DESCRIPTION from COURSES  " +
-                    "WHERE ID_COURSE = ?");
-            statement.setInt(1, courseID);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            course.setName(resultSet.getString("NAME"));
-            course.setDescription(resultSet.getString("DESCRIPTION"));
-        } catch (Exception e) {
-            System.out.println("failed to get course info");
-        }
-        return course;
     }
 
     public static int getCourseID(String name) {
@@ -193,38 +113,6 @@ public class CourseDB {
         }
     }
 
-    public static Date getCourseStartDate(int course_id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("SELECT STARTDATE from Courses where ID_COURSE = ?; ");
-            statement.setInt(1, course_id);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return convertToUtilDate(resultSet.getDate("STARTDATE"));
-
-        } catch (Exception e) {
-            System.out.println("failed to get date");
-            return null;
-        }
-    }
-
-    public static int getCourseCredits(int ID) {
-
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("SELECT CREDITS FROM COURSES " +
-                    "where ID_COURSE  = ?; ");
-            statement.setInt(1, ID);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt("CREDITS");
-        } catch (SQLException e) {
-            return 0;
-        }
-    }
-
     public static void updateCourseValues(Course course, Integer id) {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
@@ -238,7 +126,7 @@ public class CourseDB {
                 statement.setString(2, course.getDescription());
             }
             try {
-                statement.setDate(3, convertToMysqlDate(FORMAT.parse(course.getStartDate())));
+                statement.setDate(3, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(course.getStartDate())));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -263,7 +151,7 @@ public class CourseDB {
             course.setID(resultSet.getString("ID_COURSE"));
             course.setCredits(resultSet.getString("CREDITS"));
             course.setDescription(resultSet.getString("DESCRIPTION"));
-            course.setStartDate(FORMAT.format(resultSet.getDate("STARTDATE")));
+            course.setStartDate(SIMPLE_DATE_FORMAT.format(resultSet.getDate("STARTDATE")));
 
         } catch (Exception e) {
             System.out.println("failed to select from course");

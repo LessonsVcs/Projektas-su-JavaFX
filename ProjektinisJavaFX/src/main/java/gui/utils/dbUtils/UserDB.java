@@ -6,67 +6,15 @@ import javafx.collections.FXCollections;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static gui.utils.FormatedDate.FORMAT;
+import static gui.utils.FormatedDate.SIMPLE_DATE_FORMAT;
 import static gui.utils.dbUtils.DBUtils.convertToMysqlDate;
 import static gui.utils.dbUtils.RelationDB.removeFromRelation;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
 import static gui.utils.dbUtils.dbLoggin.URLOFDB;
 
 public class UserDB {
-
-
-    public static void newUserToDB(String name, String lastName, String password, String userName, Roles role) {
-
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("INSERT INTO Users (Name,LastName,Password,Username,Role) " +
-                    "VALUES (?,?,?,?,?); ");
-            statement.setString(1, name);
-            statement.setString(2, lastName);
-            statement.setString(3, password);
-            statement.setString(4, userName);
-            statement.setString(5, role.toString());
-            statement.execute();
-//            ResultSet generatedKeys = statement.getGeneratedKeys();
-//            if (generatedKeys.next()) {
-//                long id = generatedKeys.getLong(1);
-//                System.out.println(id);
-//            } else {
-//                System.out.println("Error on retrieving ID");
-//            }
-        } catch (Exception e) {
-            System.out.println("can't create user");
-        }
-    }
-
-    public static void newUserToDBexpress(String name, String lastName, String password, String userName, Roles role,
-                                          String email, java.util.Date dateOfBirth, String address) {
-
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("INSERT INTO Users " +
-                    "(Name,LastName,Password,Username,Role,Email,DateOfBirth,address) " +
-                    "VALUES (?,?,?,?,?,?,?,?); ");
-            statement.setString(1, name);
-            statement.setString(2, lastName);
-            statement.setString(3, password);
-            statement.setString(4, userName);
-            statement.setString(5, role.toString());
-            statement.setString(6, email);
-            statement.setDate(7, convertToMysqlDate(dateOfBirth));
-            statement.setString(8, address);
-
-            statement.execute();
-
-        } catch (Exception e) {
-            System.out.println("can't create user");
-        }
-    }
 
     public static String checkUsername(String input) {
         try (
@@ -111,24 +59,6 @@ public class UserDB {
         }
     }
 
-    public static boolean userExist(String input) {
-        boolean value = false;
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("Select ID FROM Users where ID = ? ;");
-            statement.setInt(1, Integer.parseInt(input));
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            if (resultSet.getInt("ID") > 0) {
-                value = true;
-            }
-        } catch (SQLException e) {
-
-        }
-        return value;
-    }
-
     public static void createUserDB(User user) {
         try (
                 Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
@@ -155,7 +85,7 @@ public class UserDB {
             }
             if (user.getDateOfBirth()!= null ){
                 try {
-                    statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
+                    statement.setDate(7, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(user.getDateOfBirth())));
 
                 } catch (ParseException e) {
                     statement.setDate(7, null);
@@ -203,7 +133,7 @@ public class UserDB {
             }
             if(user.getDateOfBirth()!= null){
                 try {
-                    statement.setDate(7, convertToMysqlDate(FORMAT.parse(user.getDateOfBirth())));
+                    statement.setDate(7, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(user.getDateOfBirth())));
                 } catch (ParseException e) {
                     statement.setDate(7, null);
                 }
@@ -264,104 +194,6 @@ public class UserDB {
 
     }
 
-    public static void editUserLastname(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET lastname = ? WHERE ID = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-
-        }
-
-    }
-
-    public static void editUserPassword(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET password = ? WHERE ID = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-        }
-
-    }
-
-    public static void editUserEmail(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET email = ? WHERE ID = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-        }
-
-    }
-
-    public static void editUserAddress(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET address = ? WHERE ID = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-        }
-
-    }
-
-    public static void editUserRole(Roles input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET role = ? WHERE ID = ?; ");
-            statement.setString(1, input.toString());
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-        }
-
-    }
-
-    public static void editUserUsername(String input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET username = ? WHERE ID = ?; ");
-            statement.setString(1, input);
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-        }
-
-    }
-
-    public static void editUserDate(java.util.Date input, Integer id) {
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("UPDATE Users SET dateofbirth = ? WHERE ID = ?; ");
-            statement.setDate(1, convertToMysqlDate(input));
-            statement.setInt(2, id);
-            statement.execute();
-        } catch (SQLException e) {
-            System.out.println("failed to update user");
-        }
-    }
-
     public static List getUsers() {
         List<User> list = FXCollections.observableArrayList();
         try (
@@ -380,7 +212,7 @@ public class UserDB {
                 user.setEmail(resultSet.getString("EMAIL"));
                 user.setAddress(resultSet.getString("ADDRESS"));
                 try {
-                    user.setDateOfBirth(FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
+                    user.setDateOfBirth(SIMPLE_DATE_FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
                 } catch (Exception e) {
                     user.setDateOfBirth(null);
                 }
@@ -411,7 +243,7 @@ public class UserDB {
             user.setEmail(resultSet.getString("EMAIL"));
             user.setAddress(resultSet.getString("ADDRESS"));
             try {
-                user.setDateOfBirth(FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
+                user.setDateOfBirth(SIMPLE_DATE_FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
             } catch (Exception e) {
                 user.setDateOfBirth(null);
             }
@@ -451,23 +283,5 @@ public class UserDB {
             return 0;
         }
     }
-
-    public static List getUsersIDs() {
-        List<String> list = new ArrayList<>();
-        try (
-                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-        ) {
-            PreparedStatement statement = con.prepareStatement("SELECT ID, NAME, LASTNAME from Users; ");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                list.add(String.valueOf(resultSet.getInt("ID")));
-            }
-
-        } catch (Exception e) {
-            System.out.println("failed to get users(getUsersIDs)");
-        }
-        return list;
-    }
-
 
 }

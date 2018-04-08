@@ -37,8 +37,8 @@ public class Main extends Application {
         initDriver();
         initDB();
         try {
-            initLogger();
-        } catch (IOException e) {
+            initLogger(Main.class.toString(),"app started");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         launch(args);

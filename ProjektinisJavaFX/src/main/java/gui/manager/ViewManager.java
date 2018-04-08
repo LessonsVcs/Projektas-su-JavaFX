@@ -15,6 +15,7 @@ import gui.controller.lecturer.users.LecturerEditProfile;
 import gui.controller.lecturer.users.LecturerUserList;
 import gui.controller.student.StudentMenu;
 import gui.controller.student.courses.StudentAllCourses;
+import gui.controller.student.courses.StudentMyCourses;
 import gui.controller.student.users.StudentUserList;
 import gui.model.User;
 import javafx.fxml.FXMLLoader;
@@ -281,6 +282,40 @@ public class ViewManager {
             e.printStackTrace();
         }
     }
+
+    public void showStudentMyCourses(String username) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/courses/studentMyCourses.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            StudentMyCourses controller = loader.getController();
+            controller.initManager(this, username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showStudentShowCourse(String courseID, String username, String courseName) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/courses/studentShowCourse.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            LecturerShowCourses controller = loader.getController();
+            controller.initManager(this, Integer.parseInt(courseID), username, courseName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showStudentShowMyCourse(String courseID, String username, String courseName) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/courses/studentShowCourse.fxml"));
+        try {
+            scene.setRoot(loader.load());
+            LecturerShowCourses controller = loader.getController();
+            controller.initManager(this, Integer.parseInt(courseID), username, courseName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

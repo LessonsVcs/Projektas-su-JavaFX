@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.Calendar;
 import java.util.List;
 
-import static gui.utils.FormatedDate.FORMAT;
+import static gui.utils.FormatedDate.SIMPLE_DATE_FORMAT;
 import static gui.utils.Utils.CREDIT_LIMIT;
 import static gui.utils.Utils.showLecturerEditProfile;
 import static gui.utils.Utils.showWarning;
@@ -95,14 +95,14 @@ public class StudentAllCourses {
     private void register() {
         try {
             Course course = courseTable.getSelectionModel().getSelectedItem();
-            if(FORMAT.parse(course.getStartDate()).after(Calendar.getInstance().getTime())) {
+            if(SIMPLE_DATE_FORMAT.parse(course.getStartDate()).after(Calendar.getInstance().getTime())) {
                 int course_id =Integer.parseInt(course.getID());
                 if(lecturerInCourse(course_id)) {
                     int student_ID = getUserID(usernameToPass);
-                    if (getUserCredits(student_ID) + Integer.parseInt(course.getCredits()) >= CREDIT_LIMIT) {
+                    if (getUserCredits(student_ID) + Integer.parseInt(course.getCredits()) <= CREDIT_LIMIT) {
                         addToCourse(student_ID, Integer.parseInt(course.getID()));
                     } else {
-                        showWarning("Youhave to many credits to enroll to this course");
+                        showWarning("You have to many credits to enroll to this course");
                     }
                 } else {
                     showWarning("Can't register to course without lecturer");
@@ -135,7 +135,7 @@ public class StudentAllCourses {
         if (event.getSource() == showCourse) {
             try {
                 Course course = courseTable.getSelectionModel().getSelectedItem();
-                viewManager.showLecturerShowCourse(course.getID(), usernameToPass, course.getName());
+                viewManager.showStudentShowCourse(course.getID(), usernameToPass, course.getName());
             } catch (Exception e) {
             }
         }

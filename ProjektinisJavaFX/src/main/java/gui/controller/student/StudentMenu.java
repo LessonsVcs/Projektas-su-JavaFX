@@ -65,7 +65,7 @@ public class StudentMenu {
     @FXML
     void showMyCourses(ActionEvent event) {
         if(event.getSource()==buttonViewCourses){
-            viewManager.showLecturerMyCourses(usernameToPass);
+            viewManager.showStudentMyCourses(usernameToPass);
         }
     }
 
