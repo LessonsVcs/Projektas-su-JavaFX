@@ -435,7 +435,7 @@ public class ViewManager {
     }
 
     public void showStudentShowMyCourse(String courseID, String username, String courseName) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/courses/studentShowCourse.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/student/courses/studentShowMyCourse.fxml"));
         try {
             scene.setRoot(loader.load());
             LecturerShowCourses controller = loader.getController();
