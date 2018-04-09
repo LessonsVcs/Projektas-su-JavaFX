@@ -1,0 +1,5 @@
+2018-04-09 09:34:09 - class gui.Main ; app started
+2018-04-09 17:47:52 - class gui.Main ; app started
+2018-04-09 17:59:10 - class gui.utils.dbUtils.DBUtils ; Unique index or primary key violation: "ACCT_USERNAME_UNIQUE_INDEX_4 ON PUBLIC.USERS(USERNAME) VALUES (CAST('admin' AS VARCHAR_IGNORECASE), 1)"; SQL statement:
+INSERT INTO Users (Name,LastName,Password,Username,Role) VALUES ('admin','admin','admin','admin','ADMIN');  [23505-197]
+2018-04-09 17:59:10 - class gui.Main ; app started

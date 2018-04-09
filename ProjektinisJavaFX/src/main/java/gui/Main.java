@@ -26,6 +26,7 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         launch(args);
     }
 
@@ -34,7 +35,6 @@ public class Main extends Application {
 
         Scene scene = new Scene(new StackPane());
         ViewManager viewManager = new ViewManager(scene);
-//        viewManager.showAdminManageCourse("test");
         viewManager.showLoginScreen();
         stage = primaryStage;
         primaryStage.setScene(scene);

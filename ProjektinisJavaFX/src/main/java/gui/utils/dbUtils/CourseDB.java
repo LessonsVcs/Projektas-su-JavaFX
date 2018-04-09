@@ -3,11 +3,13 @@ package gui.utils.dbUtils;
 import gui.model.Course;
 import javafx.collections.FXCollections;
 
+import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.List;
 
 import static gui.utils.FormatedDate.SIMPLE_DATE_FORMAT;
+import static gui.utils.InitLogger.initLogger;
 import static gui.utils.dbUtils.DBUtils.convertToMysqlDate;
 import static gui.utils.dbUtils.RelationDB.removeFromRelation;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
@@ -31,7 +33,11 @@ public class CourseDB {
             }
             //return true;
         } catch (SQLException e) {
-            //return false;
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return value;
     }
@@ -46,6 +52,11 @@ public class CourseDB {
             statement.execute();
         } catch (SQLException e) {
             System.out.println("failed to delete course");
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -71,6 +82,11 @@ public class CourseDB {
 
         } catch (Exception e) {
             System.out.println("failed to create course");
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -93,6 +109,11 @@ public class CourseDB {
             }
         } catch (Exception e) {
             System.out.println("failed to update course");
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return list;
     }
@@ -109,6 +130,11 @@ public class CourseDB {
 
         } catch (Exception e) {
             System.out.println("course doesn't exist");
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return 0;
         }
     }
@@ -135,6 +161,11 @@ public class CourseDB {
             statement.execute();
         } catch (SQLException e) {
             System.out.println("failed to update course");
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -155,6 +186,11 @@ public class CourseDB {
 
         } catch (Exception e) {
             System.out.println("failed to select from course");
+            try {
+                initLogger(CourseDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return course;
     }

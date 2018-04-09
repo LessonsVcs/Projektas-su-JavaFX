@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="448.0" prefWidth="682.0"
-            xmlns="http://javafx.com/javafx/8.0.141" fx:controller="gui.controller.lecturer.courses.LecturerShowCourses">
+            xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="gui.controller.lecturer.courses.LecturerShowCourses">
     <children>
         <Button fx:id="courseBack" layoutX="562.0" layoutY="25.0" mnemonicParsing="false" onAction="#backToCourses"
                 prefHeight="25.0" prefWidth="120.0" text="Back" AnchorPane.rightAnchor="0.0"

@@ -7,9 +7,11 @@ import gui.utils.FormatedDate;
 import gui.utils.Roles;
 import javafx.collections.FXCollections;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
+import static gui.utils.InitLogger.initLogger;
 import static gui.utils.dbUtils.DBUtils.convertToUtilDate;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
 import static gui.utils.dbUtils.dbLoggin.URLOFDB;
@@ -18,30 +20,27 @@ import static gui.utils.dbUtils.dbLoggin.URLOFDB;
 public class RelationDB {
 
     public static void removeFromRelation(Boolean removeUser, int id) {
-        if (removeUser) {
-            try (
-                    Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-            ) {
+        try (
+                Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
+        ) {
+            if (removeUser) {
                 PreparedStatement statement = con.prepareStatement("DELETE FROM COURSERELATION where ID_USER = ? ; ");
                 statement.setInt(1, id);
                 statement.execute();
                 System.out.println("User deleted");
-            } catch (SQLException e) {
-                System.out.println("failed to delete user from relation");
-            }
-        } else {
-            try (
-                    Connection con = DriverManager.getConnection(URLOFDB, LOGIN, LOGIN)
-            ) {
+            } else {
                 PreparedStatement statement = con.prepareStatement("DELETE FROM COURSERELATION where ID_COURSE = ? ; ");
                 statement.setInt(1, id);
                 statement.execute();
                 System.out.println("Course deleted");
-            } catch (SQLException e) {
-                System.out.println("failed to delete course from relation");
+            }
+        } catch (SQLException e) {
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         }
-
     }
 
     public static void addToCourse(int user_id, int course_id) {
@@ -57,6 +56,11 @@ public class RelationDB {
 
 
         } catch (Exception e) {
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to add user to course");
         }
     }
@@ -71,6 +75,11 @@ public class RelationDB {
             statement.execute();
             System.out.println("User deleted from course");
         } catch (SQLException e) {
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to delete user from course");
         }
     }
@@ -95,6 +104,11 @@ public class RelationDB {
             }
 
         } catch (Exception e) {
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to get courses");
         }
         return list;
@@ -119,7 +133,11 @@ public class RelationDB {
                 list.add(user);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to get users in course (getUsersInCourse)");
         }
         return list;
@@ -148,7 +166,11 @@ public class RelationDB {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to get users (getUsersNotInCourse)");
         }
         return list;
@@ -177,7 +199,12 @@ public class RelationDB {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            ;
             System.out.println("failed to get users (getUsersNotInCourse)");
         }
         return list;
@@ -197,6 +224,11 @@ public class RelationDB {
                     value = true;
                 }
         } catch (SQLException e) {
+            try {
+                initLogger(RelationDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return value;
     }

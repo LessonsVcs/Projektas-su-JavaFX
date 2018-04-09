@@ -13,15 +13,16 @@ public class InitLogger {
 
     public static void initLogger(String file, String msg) throws IOException {
         ConsoleHandler consoleHandler = new ConsoleHandler();
-        String fileDir = "C:\\Users\\ajankauskas\\Desktop\\Android\\ProjektinisJavaFX\\logs\\" + SIMPLE_DATE_FORMAT.format(new Date());
+
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
+        String fileDir = System.getProperty("user.dir") + "\\" + SIMPLE_DATE_FORMAT.format(new Date());
         new File(fileDir).mkdir();
         String fileLocation = fileDir + "/system.log";
-        System.out.println(fileLocation);
         FileHandler fileHandler = new FileHandler(fileLocation, true);
         consoleHandler.setFormatter(new CustomFormat());
         fileHandler.setFormatter(new CustomFormat());
         LOGGER.setUseParentHandlers(false);
-//        LOGGER.addHandler(consoleHandler);
         LOGGER.addHandler(fileHandler);
         LOGGER.info(file + " ; " + msg);
     }

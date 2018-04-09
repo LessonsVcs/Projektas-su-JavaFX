@@ -4,11 +4,13 @@ import gui.model.User;
 import gui.utils.Roles;
 import javafx.collections.FXCollections;
 
+import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.List;
 
 import static gui.utils.FormatedDate.SIMPLE_DATE_FORMAT;
+import static gui.utils.InitLogger.initLogger;
 import static gui.utils.dbUtils.DBUtils.convertToMysqlDate;
 import static gui.utils.dbUtils.RelationDB.removeFromRelation;
 import static gui.utils.dbUtils.dbLoggin.LOGIN;
@@ -26,6 +28,11 @@ public class UserDB {
             resultSet.next();
             return resultSet.getString("password");
         } catch (SQLException e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return null;
         }
     }
@@ -41,6 +48,11 @@ public class UserDB {
             resultSet.next();
             return Roles.valueOf(resultSet.getString("role"));
         } catch (SQLException e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return null;
         }
     }
@@ -55,6 +67,11 @@ public class UserDB {
             statement.execute();
 
         } catch (SQLException e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to delete user");
         }
     }
@@ -88,6 +105,11 @@ public class UserDB {
                     statement.setDate(7, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(user.getDateOfBirth())));
 
                 } catch (ParseException e) {
+                    try {
+                        initLogger(UserDB.class.toString(), e.getMessage());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                     statement.setDate(7, null);
                 }
             } else {
@@ -100,7 +122,11 @@ public class UserDB {
             }
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to update user");
 
         }
@@ -135,6 +161,11 @@ public class UserDB {
                 try {
                     statement.setDate(7, convertToMysqlDate(SIMPLE_DATE_FORMAT.parse(user.getDateOfBirth())));
                 } catch (ParseException e) {
+                    try {
+                        initLogger(UserDB.class.toString(), e.getMessage());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                     statement.setDate(7, null);
                 }
             } else {
@@ -149,7 +180,11 @@ public class UserDB {
             statement.execute();
             System.out.println("ok");
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to update user");
 
         }
@@ -187,7 +222,11 @@ public class UserDB {
             statement.setInt(6, Integer.parseInt(user.getID()));
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to update user");
 
         }
@@ -220,6 +259,11 @@ public class UserDB {
             }
 
         } catch (Exception e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to get users (getUsers)");
         }
         return list;
@@ -245,10 +289,20 @@ public class UserDB {
             try {
                 user.setDateOfBirth(SIMPLE_DATE_FORMAT.format(resultSet.getDate("DATEOFBIRTH")));
             } catch (Exception e) {
+                try {
+                    initLogger(UserDB.class.toString(), e.getMessage());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 user.setDateOfBirth(null);
             }
 
         } catch (Exception e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("failed to get users (getUsers)");
         }
         return user;
@@ -264,6 +318,11 @@ public class UserDB {
             resultSet.next();
             return resultSet.getInt("ID");
         } catch (SQLException e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return 0;
         }
     }
@@ -280,6 +339,11 @@ public class UserDB {
             resultSet.next();
             return resultSet.getInt("SUM(CREDITS)");
         } catch (SQLException e) {
+            try {
+                initLogger(UserDB.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             return 0;
         }
     }

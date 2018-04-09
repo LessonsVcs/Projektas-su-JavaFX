@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp xmlns:jfx="http://javafx.com" spec="1.0" href="ProjektinisJavaFX.jnlp">
+    <information>
+        <title>ProjektinisJavaFX</title>
+        <vendor>Unknown</vendor>
+        <description>ProjektinisJavaFX</description>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+        <jar href="ProjektinisJavaFX.jar" size="97209" download="eager"/>
+        <jar href="h2-1.4.197.jar" size="1927540" download="eager"/>
+        <jar href="hamcrest-core-1.1.jar" size="76643" download="eager"/>
+        <jar href="mockito-core-2.0.5-beta.jar" size="1175076" download="eager"/>
+        <jar href="objenesis-2.1.jar" size="41755" download="eager"/>
+    </resources>
+    <jfx:javafx-desc width="600" height="400" main-class="gui.Main" name="ProjektinisJavaFX"/>
+    <update check="background"/>
+</jnlp>

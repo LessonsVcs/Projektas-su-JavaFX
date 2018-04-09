@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="448.0" prefWidth="682.0"
-            xmlns="http://javafx.com/javafx/8.0.141" fx:controller="gui.controller.lecturer.courses.LecturerShowMyCourse">
+            xmlns="http://javafx.com/javafx/8.0.141"
+            fx:controller="gui.controller.lecturer.courses.LecturerShowMyCourse">
     <children>
         <Button fx:id="courseAddUser" layoutX="140.0" layoutY="25.0" mnemonicParsing="false"
                 onAction="#showAddUserWindow" prefHeight="25.0" prefWidth="142.0" text="Add user to course"

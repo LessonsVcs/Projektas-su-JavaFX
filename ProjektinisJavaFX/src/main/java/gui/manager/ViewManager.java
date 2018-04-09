@@ -22,6 +22,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+import static gui.utils.InitLogger.initLogger;
+
 public class ViewManager {
     Scene scene;
 
@@ -37,6 +41,11 @@ public class ViewManager {
             controller.initManager(viewManager, secondStage, courseID);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -48,6 +57,11 @@ public class ViewManager {
             controller.initManager(viewManager, secondStage, courseID);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -59,6 +73,11 @@ public class ViewManager {
             controller.initManager(this);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
 
     }
@@ -71,6 +90,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -82,6 +106,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -93,6 +122,11 @@ public class ViewManager {
             controller.initManager(this, Integer.parseInt(courseID), username, courseName);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -104,6 +138,11 @@ public class ViewManager {
             controller.initManager(this, secondStage);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -115,6 +154,11 @@ public class ViewManager {
             controller.initManager(this, secondStage, user);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -126,6 +170,11 @@ public class ViewManager {
             controller.initManager(this, secondStage);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -137,6 +186,11 @@ public class ViewManager {
             controller.initManager(this, secondStage, courseID);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -148,6 +202,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -159,6 +218,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -170,6 +234,11 @@ public class ViewManager {
             controller.initManager(this, secondStage, user);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -181,6 +250,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -192,6 +266,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -203,6 +282,11 @@ public class ViewManager {
             controller.initManager(this, Integer.parseInt(courseID), username, courseName);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -214,6 +298,11 @@ public class ViewManager {
             controller.initManager(this, Integer.parseInt(courseID), username, courseName);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -225,6 +314,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -236,6 +330,11 @@ public class ViewManager {
             controller.initManager(this, secondStage, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -247,6 +346,11 @@ public class ViewManager {
             controller.initManager(this, secondStage, username, courseID);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -258,6 +362,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -269,6 +378,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -280,6 +394,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -291,6 +410,11 @@ public class ViewManager {
             controller.initManager(this, username);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -302,6 +426,11 @@ public class ViewManager {
             controller.initManager(this, Integer.parseInt(courseID), username, courseName);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -313,6 +442,11 @@ public class ViewManager {
             controller.initManager(this, Integer.parseInt(courseID), username, courseName);
         } catch (Exception e) {
             e.printStackTrace();
+            try {
+                initLogger(ViewManager.class.toString(), e.getMessage());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
